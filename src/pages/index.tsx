@@ -60,7 +60,7 @@ npm run start`}
           </div>
           <Link
             className="button button--primary button--lg"
-            to="/docs/processes">
+            to="/processes">
             Ir para a Documentação 📑
           </Link>
         </section>
