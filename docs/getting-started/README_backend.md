@@ -20,13 +20,11 @@ Siga cada etapa rigorosamente. Pular passos é o caminho mais curto para dores d
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white&labelColor=2D2D2D)
 
 # ⚠️ ATENÇÃO! ⚠️
-<!-- Badge -->
 <p align="center">
   <img src="https://img.shields.io/badge/%F0%9F%9A%A8-USE%20SEMPRE%20pnpm-FF0000?style=for-the-badge&logo=pnpm&logoColor=white&labelColor=1E1E1E" 
        alt="Use sempre pnpm" />
 </p>
 
-<!-- Aviso -->
 <blockquote>
   <p align="center">
     <strong>⚠️ IMPORTANTE:</strong> Use sempre <code>pnpm</code>, <strong>nunca</strong> <code>npm</code>.
