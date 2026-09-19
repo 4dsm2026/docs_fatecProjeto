@@ -12,3 +12,5 @@ Para rodar a documentação do projeto (Docusaurus) localmente:
 npm install
 npm run start
 ```
+
+Url do git page: 'https://4dsm2026.github.io/docs_fatecProjeto/'
