@@ -1,0 +1,136 @@
+---
+title: Fluxo de Abertura e Atendimento de Chamados
+description: Processo BPMN convertido do diagrama original (drawio) — raias USUÁRIO, SISTEMA e SETOR RESPONSÁVEL.
+slug: /Diagrama_bpmn
+---
+
+# Fluxo de Abertura e Atendimento de Chamados
+
+Este documento descreve o processo representado no diagrama BPMN original (`BPMN_Projet.drawio`), organizado em três raias (*swimlanes*): **Usuário**, **Sistema** e **Setor Responsável**.
+
+## Diagrama
+
+```mermaid
+flowchart TD
+    subgraph USUARIO["👤 USUÁRIO"]
+        A1((Abre o sistema))
+        A2[Realiza login]
+        A6[Escolhe categoria e serviço]
+        A14[Preenche dados e anexos]
+        A5[Define setor provável]
+        A15{Solicitação completa?}
+    end
+
+    subgraph SISTEMA["💻 SISTEMA"]
+        B4{Credenciais válidas?}
+        B7[Exibe erro / bloqueia acesso]
+        B51((Fim - Acesso negado))
+        B18[Solicita complementação]
+        B16{Dados obrigatórios preenchidos?}
+        B21[Confirma envio da solicitação]
+        B3[Valida autenticação e permissões]
+        B6[Cria chamado / Ticket]
+        B9[Registra status inicial]
+        B11[Publica notificação para setor e alunos]
+        B21e[Encaminha para o setor responsável]
+        B17[Solicita dados ou anexos ao aluno]
+        B28[STATUS: AGUARDANDO_USUARIO]
+        B31[Notifica aluno para complementação]
+        B39[STATUS: RESOLVIDO_ENCERRADO]
+        B101((Fim - Processo concluído))
+    end
+
+    subgraph SETOR["🏢 SETOR RESPONSÁVEL"]
+        C13[Triagem do chamado]
+        C24[Analisa demanda]
+        C26{Precisa da resposta do aluno?}
+        C34[Atende e registra resposta]
+        C37[Define resolução]
+    end
+
+    A1 --> A2
+    A2 --> B4
+    B4 -- Não --> B7
+    B7 --> B51
+    B4 -- Sim --> A6
+    A6 --> A14
+    A14 --> B16
+    B16 -- Não --> B18
+    B18 --> A14
+    B16 -- Sim --> B21
+    B21 --> B3
+    B3 --> B6
+    B6 --> A5
+    A5 --> B9
+    B9 --> B11
+    B11 --> C13
+    C13 --> A15
+    A15 -- Sim --> B21e
+    A15 -- Não --> B17
+    B17 --> B11
+    B21e --> C24
+    C24 --> C26
+    C26 -- Não --> C34
+    C34 --> C37
+    C37 --> B39
+    B39 --> B101
+    C26 -- Sim --> B28
+    B28 --> B31
+    B31 --> A14
+```
+
+> **Nota:** no diagrama original, a tarefa *"Triagem do chamado"* (raia Setor Responsável) conecta-se diretamente à decisão *"Solicitação completa?"* (raia Usuário), em vez de seguir para *"Analisa demanda"*. Essa ligação foi preservada fielmente aqui; vale confirmar se ela reflete a intenção real do processo ou se é um ajuste pendente no diagrama.
+
+## Etapas por raia
+
+### 👤 Usuário
+
+| Etapa | Tipo | Descrição |
+|---|---|---|
+| Abre o sistema | Evento de início | Usuário inicia o acesso ao sistema |
+| Realiza login | Tarefa | Informa credenciais de acesso |
+| Escolhe categoria e serviço | Tarefa | Seleciona o tipo de solicitação |
+| Preenche dados e anexos | Tarefa | Preenche formulário e anexa documentos |
+| Define setor provável | Tarefa | Sistema/usuário indica o setor provável de destino |
+| Solicitação completa? | Decisão | Verifica se a triagem considerou a solicitação completa |
+
+### 💻 Sistema
+
+| Etapa | Tipo | Descrição |
+|---|---|---|
+| Credenciais válidas? | Decisão | Valida login informado |
+| Exibe erro/bloqueia acesso | Tarefa | Login inválido → bloqueio |
+| Fim - Acesso negado | Evento de fim | Encerra o processo por falha de autenticação |
+| Dados obrigatórios preenchidos? | Decisão | Confere se os campos obrigatórios foram preenchidos |
+| Solicita complementação | Tarefa | Pede ao usuário dados faltantes (retorna ao preenchimento) |
+| Confirma envio da solicitação | Tarefa | Confirma o envio da solicitação preenchida |
+| Valida autenticação e permissões | Tarefa | Revalida sessão/permissões antes de criar o chamado |
+| Cria chamado/Ticket | Tarefa | Gera o chamado no sistema |
+| Registra status inicial | Tarefa | Define o status inicial do chamado |
+| Publica notificação para setor e alunos | Tarefa | Notifica as partes interessadas |
+| Encaminha para o setor responsável | Tarefa | Direciona o chamado ao setor competente |
+| Solicita dados ou anexos ao aluno | Tarefa | Pede informações adicionais ao aluno |
+| STATUS: AGUARDANDO_USUÁRIO | Marcador de status | Chamado aguardando retorno do aluno |
+| Notifica aluno para complementação | Tarefa | Avisa o aluno sobre pendência (retorna ao preenchimento) |
+| STATUS: RESOLVIDO_ENCERRADO | Marcador de status | Chamado finalizado com resolução |
+| Fim - Processo concluído | Evento de fim | Encerra o processo com sucesso |
+
+### 🏢 Setor Responsável
+
+| Etapa | Tipo | Descrição |
+|---|---|---|
+| Triagem do chamado | Tarefa | Setor realiza a triagem inicial do chamado |
+| Analisa demanda | Tarefa | Analisa o conteúdo da solicitação |
+| Precisa da resposta do aluno? | Decisão | Verifica se é necessário retorno do aluno |
+| Atende e registra resposta | Tarefa | Atende a demanda diretamente |
+| Define resolução | Tarefa | Registra a resolução do chamado |
+
+## Caminhos principais
+
+1. **Login inválido:** Realiza login → Credenciais válidas? (Não) → Exibe erro/bloqueia acesso → Fim (Acesso negado).
+2. **Dados incompletos no formulário:** Preenche dados e anexos → Dados obrigatórios preenchidos? (Não) → Solicita complementação → volta a Preenche dados e anexos.
+3. **Fluxo feliz até a triagem:** Login válido → Escolhe categoria/serviço → Preenche dados e anexos → Confirma envio → Valida autenticação/permissões → Cria chamado → Define setor provável → Registra status inicial → Publica notificação → Triagem do chamado.
+4. **Triagem incompleta:** Solicitação completa? (Não) → Solicita dados ou anexos ao aluno → volta a Publica notificação.
+5. **Triagem completa e análise do setor:** Solicitação completa? (Sim) → Encaminha para o setor responsável → Analisa demanda → Precisa da resposta do aluno?
+   - **Sim:** STATUS AGUARDANDO_USUÁRIO → Notifica aluno para complementação → volta a Preenche dados e anexos.
+   - **Não:** Atende e registra resposta → Define resolução → STATUS RESOLVIDO_ENCERRADO → Fim (Processo concluído).
