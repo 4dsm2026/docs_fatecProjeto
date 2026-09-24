@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Documentação do Projeto',
   tagline: 'Documentação técnica e processos',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/wf_logo.ico',
 
   future: {
     v4: true,
@@ -13,7 +13,7 @@ const config: Config = {
 
   // Configuração do GitHub Pages
   url: 'https://4dsm2026.github.io',
-  baseUrl: '/docs_fatecProjeto/', // Ajustado para o nome real do repositório
+  baseUrl: '/docs_fatecProjeto/',
   organizationName: '4dsm2026',
   projectName: 'docs_fatecProjeto',
   trailingSlash: false,
@@ -26,6 +26,12 @@ const config: Config = {
     defaultLocale: 'pt-BR',
     locales: ['pt-BR'],
   },
+
+  // ✅ Mermaid — precisa ficar DENTRO do config
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
 
   presets: [
     [
@@ -44,15 +50,15 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/wf_logo.png',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Docs Fatec',
+      title: 'WorkFlow',
       logo: {
         alt: 'Logo',
-        src: 'img/logo.svg',
+        src: 'img/wf_logo.png',
       },
       items: [
         {
@@ -76,7 +82,8 @@ const config: Config = {
           items: [
             {
               label: 'Início',
-              to: '/docs/processes', // Aponta para a pasta real existente
+              // ✅ routeBasePath é '/', então o caminho correto é '/processes'
+              to: '/processes',
             },
           ],
         },
@@ -95,6 +102,10 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    // ✅ Tema do Mermaid (light/dark) — opcional, mas recomendado
+    mermaid: {
+      theme: {light: 'neutral', dark: 'dark'},
     },
   } satisfies Preset.ThemeConfig,
 };
