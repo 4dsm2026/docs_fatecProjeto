@@ -1,71 +1,102 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
-import Heading from '@theme/Heading';
-import styles from './styles.module.css';
+import type { ReactNode } from 'react';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import styles from './index.module.css';
 
-type FeatureItem = {
+type CardItem = {
+  icon: string;
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
-  description: ReactNode;
+  description: string;
+  href: string; // caminho relativo ao baseUrl — o Link já aplica o baseUrl sozinho
 };
 
-const FeatureList: FeatureItem[] = [
+const cards: CardItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
+    icon: '→',
+    title: 'Como começar',
+    description: 'Primeiros passos para começar a trabalhar com o Workflow.',
+    href: '/docs_fatecProjeto/getting_started/read', // ✅ confirmado
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
+    icon: '✓',
+    title: 'Guia de boas práticas',
+    description: 'Padrões, recomendações e práticas para manter o projeto organizado.',
+    href: '/docs/boas_praticas', // TODO: confirmar no sidebars.js
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
+    icon: '◇',
+    title: 'Arquitetura',
+    description: 'Estrutura técnica, componentes e organização do sistema.',
+    href: '/docs/arquitetura', // TODO: confirmar no sidebars.js
+  },
+  {
+    icon: '↻',
+    title: 'Processos',
+    description: 'Fluxos de trabalho, desenvolvimento e colaboração da equipe.',
+    href: '/docs/processos', // TODO: confirmar no sidebars.js
+  },
+  {
+    icon: '□',
+    title: 'UI & UX',
+    description: 'Diretrizes de interface, experiência e identidade visual.',
+    href: '/docs/ui_ux', // TODO: confirmar no sidebars.js
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function WorkflowCard({ icon, title, description, href }: CardItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
+    <Link className={styles.workflowCard} to={href}>
+      <div className={styles.workflowCardIcon}>{icon}</div>
+      <div>
+        <h2>{title}</h2>
         <p>{description}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
-export default function HomepageFeatures(): ReactNode {
+function HeroSection() {
   return (
-    <section className={styles.features}>
+    <header className={styles.heroBanner}>
       <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
+        <h1 className={styles.heroTitle}>WorkFlow</h1>
+        <p className={styles.heroSubtitle}>
+          Documentação central do projeto — fluxos, arquitetura e padrões
+          usados pela equipe no desenvolvimento do sistema.
+        </p>
+        <div className={styles.buttons}>
+          <Link className="button button--primary button--lg" to="/docs/getting_started">
+            Ver a documentação
+          </Link>
+          <Link
+            className={`button button--lg ${styles.buttonOutline}`}
+            href="https://github.com/4dsm2026/docs_fatecProjeto"
+            target="_blank"
+            rel="noopener noreferrer">
+            Repositório no GitHub
+          </Link>
         </div>
       </div>
-    </section>
+    </header>
+  );
+}
+
+export default function Home(): ReactNode {
+  const { siteConfig } = useDocusaurusContext();
+
+  return (
+    <Layout
+      title={siteConfig.title}
+      description="Documentação oficial do projeto WorkFlow Fatec">
+      <HeroSection />
+      <main className="container margin-vert--xl" style={{ maxWidth: '960px' }}>
+        <div className={styles.workflowCards}>
+          {cards.map((card) => (
+            <WorkflowCard key={card.title} {...card} />
+          ))}
+        </div>
+      </main>
+    </Layout>
   );
 }
