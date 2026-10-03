@@ -1,0 +1,73 @@
+---
+sidebar_position: 3
+title: Testes — Impedir Aluno de Responder Sugestão
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Testes — Impedir Aluno de Responder Sugestão
+
+Este documento reúne as evidências em vídeo dos testes manuais realizados na regra de negócio **"Impedir aluno de responder sugestão"**, referente ao fluxo administrativo de resposta a sugestões enviadas pelos alunos.
+
+Os vídeos estão em `static/videos/ui-ux/impedir-aluno-responder-sugestao/` e são apresentados aqui individualmente, já embutidos na página.
+
+---
+
+## Abrir detalhe administrativo
+
+Acesso da Secretaria/Administração ao detalhe de uma sugestão enviada.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/impedir-aluno-responder-sugestao/abrir-detalhe-administrativo.mp4')} />
+
+---
+
+## Impedir aluno de responder sugestão
+
+Teste principal da regra: o aluno não deve conseguir responder à própria sugestão, apenas a administração.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/impedir-aluno-responder-sugestao/impedir-aluno-responder-sugestao.mp4')} />
+
+---
+
+## Salvar resposta mantendo status "Não respondido"
+
+Comportamento do sistema ao salvar uma resposta sem finalizar o atendimento, mantendo o status da sugestão como "Não respondido".
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/impedir-aluno-responder-sugestao/salvar-resposta-como-nao-respondido.mp4')} />
+
+---
+
+## Finalizar sugestão como respondida
+
+Fluxo de finalização da resposta administrativa, alterando o status da sugestão para "Respondido".
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/impedir-aluno-responder-sugestao/finalizar-como-respondida.mp4')} />
+
+---
+
+## Impedir alteração após status "Respondido"
+
+Verificação de que a resposta não pode mais ser alterada depois que a sugestão já está com status "Respondido".
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/impedir-aluno-responder-sugestao/impedir-alteracao-apos-respondido.mp4')} />
+
+---
+
+## Validar limite de respostas administrativas
+
+Comportamento do sistema diante do limite de respostas administrativas permitidas por sugestão.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/impedir-aluno-responder-sugestao/validar-limite-respostas-administrativas.mp4')} />
+
+---
+
+## Resumo dos testes
+
+| # | Teste | Foco |
+|---|-------|------|
+| 1 | Abrir detalhe administrativo | Navegação |
+| 2 | Impedir aluno de responder sugestão | Regra de negócio (principal) |
+| 3 | Salvar resposta mantendo status "Não respondido" | Fluxo administrativo |
+| 4 | Finalizar sugestão como respondida | Fluxo administrativo |
+| 5 | Impedir alteração após status "Respondido" | Regra de negócio |
+| 6 | Validar limite de respostas administrativas | Regra de negócio |
