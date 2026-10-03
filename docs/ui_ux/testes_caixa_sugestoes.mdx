@@ -1,0 +1,84 @@
+---
+sidebar_position: 2
+title: Testes — Caixa de Sugestões
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Testes — Caixa de Sugestões
+
+Este documento reúne as evidências em vídeo dos testes manuais realizados na funcionalidade **Caixa de Sugestões**, além do relatório de testes completo em PDF.
+
+Os vídeos e o relatório estão em `static/videos/ui-ux/caixa-de-sugestoes/` e são apresentados aqui individualmente, já embutidos na página.
+
+📄 <a href={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/RelatoriodeTestes.pdf')}>Baixar o relatório completo de testes (PDF)</a>
+
+---
+
+## Acesso à caixa de sugestão
+
+Fluxo de acesso do usuário à funcionalidade de caixa de sugestão.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/acesso-caixa-sugestao.mp4')} />
+
+---
+
+## Validação de caractere máximo
+
+Comportamento do formulário ao atingir o limite máximo de caracteres permitido no campo de sugestão.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/caracter-maximo.mp4')} />
+
+---
+
+## Validação de e-mail obrigatório
+
+Verificação de que o campo de e-mail é obrigatório para o envio da sugestão.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/email-obrigatorio.mp4')} />
+
+---
+
+## Validação de e-mail inválido
+
+Comportamento do formulário ao receber um e-mail em formato inválido.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/email-invalido.mp4')} />
+
+---
+
+## Envio válido de sugestão
+
+Fluxo completo de envio de uma sugestão com dados válidos.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/envio-valido.mp4')} />
+
+---
+
+## Visualização pela Secretaria
+
+Visualização das sugestões enviadas a partir da conta da Secretaria.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/secretaria-sugestao.mp4')} />
+
+---
+
+## Validação de valor limite
+
+Comportamento do sistema diante de um valor no limite permitido pela regra de negócio.
+
+<video controls width="100%" src={useBaseUrl('/videos/ui-ux/caixa-de-sugestoes/valor-limite.mp4')} />
+
+---
+
+## Resumo dos testes
+
+| # | Teste | Foco |
+|---|-------|------|
+| 1 | Acesso à caixa de sugestão | Navegação |
+| 2 | Caractere máximo | Validação de campo |
+| 3 | E-mail obrigatório | Validação de campo |
+| 4 | E-mail inválido | Validação de campo |
+| 5 | Envio válido | Fluxo principal |
+| 6 | Visualização pela Secretaria | Fluxo administrativo |
+| 7 | Valor limite | Regra de negócio |
