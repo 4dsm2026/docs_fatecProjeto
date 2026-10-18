@@ -123,3 +123,9 @@ Essa sequência corresponde diretamente às raias **USUÁRIO → SISTEMA → SET
 - O **Dinâmico** amarra tudo isso em um processo de ponta a ponta, ligando o fluxo de negócio (BPMN) à arquitetura técnica.
 
 ---
+## Arquivos-fonte
+
+- [C4_WorkFlow_FATEC.drawio](/diagramas/C4_WorkFlow_FATEC.drawio): fonte editável dos quatro diagramas (abra em [diagrams.net](https://app.diagrams.net/)). Ao mudar a arquitetura, atualize este arquivo e as páginas acima.
+- [Explicando o Diagrama C4 (PDF)](/diagramas/explicando-o-diagrama-c4.pdf): versão em PDF desta explicação.
+
+*Movidos de `backend_fatecProjeto/docs/` para manter toda a documentação no mesmo lugar.*
