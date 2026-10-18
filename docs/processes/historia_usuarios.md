@@ -3,6 +3,20 @@ sidebar_position: 1
 title: Histórias de Usuário
 ---
 # 📄 Histórias de Usuário
+
+:::info Levantamento de histórias, não descrição do sistema
+Estas histórias foram levantadas para planejar o backlog. A linha **Situação** de cada grupo diz o que já existe no sistema (conferido com `develop` em outubro de 2026) e aponta para as issues. O trabalho em andamento fica no [quadro do projeto](https://github.com/orgs/4dsm2026/projects/3).
+:::
+
+| Grupo | Situação |
+|---|---|
+| 1. Atendimento personalizado | 🕓 Planejado |
+| 2. Roteamento de manutenção | 🕓 Planejado |
+| 3. Passe Escolar / EMTU | 🕓 Planejado |
+| 4. Cancelamento/Trancamento e Pesquisa Institucional | 🕓 Planejado |
+| 5. Caixa de Sugestão | ✅ Implementado (US6.2 em decisão) |
+| 6. Mapa de Sala | 🕓 Planejado |
+
 ---
 
 ## 1. 🎓 Atendimento Personalizado (Aluno ↔ Coordenador)
@@ -10,6 +24,8 @@ title: Histórias de Usuário
 ### 🐛 Issue 1 — Solicitação de atendimento personalizado
 
 **Prioridade:** 🔴 Alta
+
+**Situação:** 🕓 **Planejado** · [backend#72](https://github.com/4dsm2026/backend_fatecProjeto/issues/72) · [frontend#194](https://github.com/4dsm2026/frontend_fatecProjeto/issues/194) · depende dos perfis de Coordenação ([backend#124](https://github.com/4dsm2026/backend_fatecProjeto/issues/124))
 
 | ID | História de Usuário |
 | --- | --- |
@@ -28,6 +44,8 @@ title: Histórias de Usuário
 
 **Prioridade:** 🔴 Alta
 
+**Situação:** 🕓 **Planejado** · [backend#73](https://github.com/4dsm2026/backend_fatecProjeto/issues/73) · hoje o setor é escolhido pelo nome do setor provável ([backend#114](https://github.com/4dsm2026/backend_fatecProjeto/issues/114))
+
 | ID | História de Usuário |
 | --- | --- |
 | **US2.1** | Como aluno/solicitante, eu quero classificar o tipo de manutenção ao abrir um chamado, para que ele seja direcionado automaticamente ao setor correto. |
@@ -39,6 +57,8 @@ title: Histórias de Usuário
 
 **Prioridade:** 🟡 Média
 
+**Situação:** 🕓 **Planejado** · [backend#74](https://github.com/4dsm2026/backend_fatecProjeto/issues/74) · [frontend#195](https://github.com/4dsm2026/frontend_fatecProjeto/issues/195)
+
 | ID | História de Usuário |
 | --- | --- |
 | **US2.3** | Como solicitante, eu quero que, ao selecionar "Equipamento" como tipo de manutenção, o chamado seja enviado automaticamente para o Auxiliar Docente e a Coordenação, para que eu não precise indicar o destinatário manualmente. |
@@ -49,6 +69,8 @@ title: Histórias de Usuário
 ### 🐛 Issue 2.2 — Manutenção Geral (predial)
 
 **Prioridade:** 🟡 Média
+
+**Situação:** 🕓 **Planejado** · [backend#75](https://github.com/4dsm2026/backend_fatecProjeto/issues/75) · [frontend#195](https://github.com/4dsm2026/frontend_fatecProjeto/issues/195)
 
 | ID | História de Usuário |
 | --- | --- |
@@ -62,6 +84,8 @@ title: Histórias de Usuário
 ### 🐛 Issue 3 — Cadastro de Solicitação de Passe Escolar / EMTU
 
 **Prioridade:** 🟣 Crítica
+
+**Situação:** 🕓 **Planejado** · [backend#76](https://github.com/4dsm2026/backend_fatecProjeto/issues/76) · [frontend#196](https://github.com/4dsm2026/frontend_fatecProjeto/issues/196)
 
 | ID | História de Usuário |
 | --- | --- |
@@ -77,6 +101,8 @@ title: Histórias de Usuário
 
 **Prioridade:** 🔴 Alta
 
+**Situação:** 🕓 **Planejado** · [backend#77](https://github.com/4dsm2026/backend_fatecProjeto/issues/77) · [frontend#197](https://github.com/4dsm2026/frontend_fatecProjeto/issues/197)
+
 | ID | História de Usuário |
 | --- | --- |
 | **US4.1** | Como aluno, eu quero abrir uma solicitação de cancelamento ou trancamento, escolhendo o tipo e descrevendo o motivo, para que a Coordenação entenda minha decisão e dê andamento ao processo. |
@@ -88,6 +114,8 @@ title: Histórias de Usuário
 ### 🐛 Issue 5 — Interface de pesquisa institucional (CPA/Coordenadores)
 
 **Prioridade:** 🔴 Alta
+
+**Situação:** 🕓 **Planejado** · [backend#78](https://github.com/4dsm2026/backend_fatecProjeto/issues/78) · [frontend#198](https://github.com/4dsm2026/frontend_fatecProjeto/issues/198) · depende do perfil CPA ([backend#124](https://github.com/4dsm2026/backend_fatecProjeto/issues/124))
 
 | ID | História de Usuário |
 | --- | --- |
@@ -103,6 +131,8 @@ title: Histórias de Usuário
 
 **Prioridade:** 🟡 Média
 
+**Situação:** ✅ **Implementado** (US6.1 e US6.3; envio sempre identificado) · US6.2 (anônimo) em decisão: [backend#125](https://github.com/4dsm2026/backend_fatecProjeto/issues/125)
+
 | ID | História de Usuário |
 | --- | --- |
 | **US6.1** | Como aluno, eu quero enviar uma sugestão, ideia ou crítica construtiva pelo sistema, para que eu possa contribuir com melhorias na instituição. |
@@ -116,6 +146,8 @@ title: Histórias de Usuário
 ### 🐛 Issue 7 — Acesso ao Mapa de Sala
 
 **Prioridade:** 🟡 Média
+
+**Situação:** 🕓 **Planejado** · [backend#80](https://github.com/4dsm2026/backend_fatecProjeto/issues/80) · [frontend#200](https://github.com/4dsm2026/frontend_fatecProjeto/issues/200) (e as anteriores [backend#13](https://github.com/4dsm2026/backend_fatecProjeto/issues/13) · [frontend#14](https://github.com/4dsm2026/frontend_fatecProjeto/issues/14))
 
 | ID | História de Usuário |
 | --- | --- |

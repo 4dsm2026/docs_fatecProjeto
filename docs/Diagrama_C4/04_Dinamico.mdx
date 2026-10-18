@@ -6,6 +6,8 @@ sidebar_label: 04 — Dinâmico
 
 # Diagrama Dinâmico — Abertura de Chamado
 
+Como os componentes colaboram quando o aluno envia uma solicitação pelo assistente do catálogo.
+
 ```mermaid
 %%{init: {
   "theme": "base",
@@ -28,46 +30,44 @@ sequenceDiagram
     autonumber
     actor Aluno
     participant Web as Aplicação Web
-    participant Auth as Auth Middleware
-    participant Tickets as Tickets Component
-    participant Catalog as Catalog Component
-    participant Notif as Notifications Component
-    participant Data as Data Access
-    participant DB as Banco de Dados
-    actor Setor as Setor Responsável
+    participant Auth as Autorização
+    participant Tickets as Chamados
+    participant Anexos as Anexos
+    participant Notif as Notificações
+    participant DB as Banco (Prisma)
+    actor Equipe as Equipe do setor
 
-    Aluno->>Web: Preenche categoria, serviço e dados do chamado
+    Aluno->>Web: Preenche o assistente (serviço, dados acadêmicos, campos, documentos) e confirma na revisão
     Web->>Auth: POST /tickets (JWT)
 
     alt Token inválido ou expirado
-        Auth-->>Web: 401 Unauthorized
-        Web-->>Aluno: Exibe erro de autenticação
-    else Token e permissões válidos
-        Auth->>Tickets: Encaminha requisição autorizada
-        Tickets->>Catalog: Valida categoria/serviço
+        Auth-->>Web: 401
+        Web->>Web: Renova a sessão (refresh) ou volta ao login
+    else Token válido
+        Auth->>Tickets: Encaminha a requisição
+        Tickets->>DB: Gera protocolo TCK-XXXXXX
+        Tickets->>DB: Procura setor cujo nome contém o "setor provável"
+        Note over Tickets,DB: Sem setor correspondente, o chamado fica sem setor (backend#114)
+        Tickets->>DB: INSERT chamado (status ABERTO)
+        Tickets->>DB: INSERT histórico (— → ABERTO)
+        Tickets->>Notif: Notifica solicitante, responsável e membros do setor
+        Notif->>DB: INSERT notificação in-app
+        Tickets-->>Web: 201 Created (chamado)
 
-        alt Categoria ou serviço inexistente
-            Catalog-->>Tickets: Erro de validação
-            Tickets-->>Web: 422 Unprocessable Entity
-            Web-->>Aluno: Exibe erro nos campos
-        else Categoria/serviço válidos
-            Catalog-->>Tickets: OK
-            Tickets->>Data: Grava chamado (status: aberto)
-            Data->>DB: INSERT chamado
-            DB-->>Data: chamado_id
-            Data-->>Tickets: Confirmação da gravação
-
-            par Notifica setor
-                Tickets->>Notif: Publica notificação para o setor
-                Notif->>Data: Grava notificação in-app
-                Data->>DB: INSERT notificação
-            and Confirma para o aluno
-                Tickets-->>Web: Chamado criado (chamado_id)
-                Web-->>Aluno: Confirma abertura do chamado
-            end
-
-            note over Setor,DB: Setor visualiza o chamado na fila de triagem
-            Setor->>Web: Acessa chamado para triagem
+        loop Para cada documento escolhido na etapa 4
+            Web->>Anexos: POST /tickets/:id/anexos
+            Anexos->>Anexos: Grava o arquivo
+            Anexos->>Notif: Notifica novo anexo
         end
+
+        Web-->>Aluno: Abre a página da solicitação ("criada com sucesso")
+        Equipe->>Web: Vê o chamado em Todos os Chamados e começa o atendimento
     end
 ```
+
+Diferenças em relação à versão original deste diagrama:
+
+- O serviço do catálogo **não é validado** na criação (não há resposta 422) — [backend#120](https://github.com/4dsm2026/backend_fatecProjeto/issues/120).
+- Os anexos são enviados **depois** que o chamado é criado, um por requisição.
+- O sistema grava o **histórico de status** já na abertura.
+- A equipe só é notificada se o chamado tiver setor (ou responsável).

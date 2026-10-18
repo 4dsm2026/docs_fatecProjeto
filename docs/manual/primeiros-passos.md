@@ -17,6 +17,10 @@ title: Primeiros passos
 
 O sistema leva cada perfil para a sua área: alunos para o **Portal do Aluno**, funcionários para o painel da **Secretaria**.
 
+:::caution Bloqueio por tentativas
+Depois de **5 senhas erradas seguidas**, a conta fica bloqueada por **15 minutos** e desbloqueia sozinha. Se não lembrar a senha, use **Esqueci a senha** antes de chegar ao bloqueio.
+:::
+
 ## Primeiro acesso
 
 Contas novas recebem uma **senha temporária**. No primeiro login com ela, o sistema pede a troca da senha antes de liberar o acesso.
