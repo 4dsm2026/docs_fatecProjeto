@@ -37,10 +37,14 @@ Em **Adicionar anexo**, clique em **Escolher arquivo…** ou arraste o arquivo p
 
 ## O que significa cada status
 
-| Status | O que fazer |
-|---|---|
-| **Solicitação recebida pela Fatec** | Nada: aguarde o início do atendimento |
-| **Em análise pelo setor responsável** | Nada: a equipe está trabalhando no pedido |
-| **Aguardando minha ação** | **Responda** na conversa ou anexe o que foi pedido. O atendimento fica parado até você responder |
-| **Respondida** | Confira a resposta. Se algo ficou pendente, escreva na conversa |
-| **Encerrada** | Solicitação finalizada. Para um novo pedido, abra outra solicitação |
+| Status (selo) | No filtro | O que fazer |
+|---|---|---|
+| **Solicitação recebida pela Fatec.** | Recebida pela Fatec | Nada: aguarde o início do atendimento |
+| **Em análise pelo setor responsável.** | Em análise | Nada: a equipe está trabalhando no pedido |
+| **Aguardando documento ou resposta do aluno.** | Aguardando minha ação | **Responda** na conversa ou anexe o que foi pedido. O atendimento fica parado até você responder |
+| **Solicitação respondida.** | Respondida | Confira a resposta. Se algo ficou pendente, escreva na conversa |
+| **Atendimento finalizado.** | Encerrada | Solicitação finalizada. Para um novo pedido, abra outra solicitação |
+
+:::note Depois de responder
+O selo continua "Aguardando documento ou resposta do aluno." até a equipe ler sua resposta e mudar o status. Não precisa responder de novo.
+:::

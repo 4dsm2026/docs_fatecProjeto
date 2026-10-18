@@ -30,8 +30,11 @@ A descrição não muda, mas você pode complementar pela **conversa** da solici
 **Quais arquivos posso anexar?**
 PDF, Word, Excel, imagens e TXT, com até 10 MB cada.
 
-**O que significa "Aguardando minha ação"?**
-A Fatec precisa de algo seu: leia a última mensagem da conversa e responda ou anexe o que foi pedido. Veja [o que significa cada status](./aluno/acompanhar-solicitacoes.md#o-que-significa-cada-status).
+**O que significa "Aguardando documento ou resposta do aluno"?**
+A Fatec precisa de algo seu: leia a última mensagem da conversa e responda ou anexe o que foi pedido. No filtro da lista, esse status se chama "Aguardando minha ação". Depois que você responde, o selo só muda quando a equipe ler a resposta. Veja [o que significa cada status](./aluno/acompanhar-solicitacoes.md#o-que-significa-cada-status).
+
+**Recebo e-mail quando a solicitação muda?**
+Ainda não: os avisos chegam pelo **sino** e pela página **Notificações** do portal. Por e-mail, hoje, só chegam o link de primeiro acesso e o de redefinição de senha.
 
 ## Avisos
 

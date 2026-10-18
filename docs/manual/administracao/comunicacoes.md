@@ -5,13 +5,17 @@ title: Comunicações (e-mails)
 
 # Comunicações: modelos de e-mail
 
-O sistema envia e-mails automáticos em momentos importantes. Em **Comunicações**, o administrador edita o texto de cada um.
+Em **Comunicações**, o administrador edita os modelos dos e-mails do sistema.
 
 ![Comunicações](/img/manual/admin-07-comunicacoes.webp)
 
+:::warning Os modelos ainda não são usados nos envios automáticos
+Hoje, o sistema envia por e-mail apenas o **link de primeiro acesso** e o de **redefinição de senha**, com um texto fixo. Os modelos desta tela ficam guardados e podem ser testados com **Enviar teste**, mas abertura de chamado, mudança de status, mensagens e anexos **não geram e-mail**: esses avisos chegam só pelas [notificações do sistema](../aluno/notificacoes.md). A ligação dos modelos aos envios está [planejada](https://github.com/4dsm2026/backend_fatecProjeto/issues/116).
+:::
+
 ## Modelos disponíveis
 
-| Modelo | Quando é enviado |
+| Modelo | Evento para o qual foi preparado |
 |---|---|
 | Bem-vindo — Primeiro acesso | Conta criada, com o link de primeiro acesso |
 | Resetar senha | Pedido de "Esqueci a senha" |
@@ -26,13 +30,13 @@ O sistema envia e-mails automáticos em momentos importantes. Em **Comunicaçõe
 
 1. Escolha o modelo na lista (use a busca por nome ou chave).
 2. Ajuste o **Assunto** e o texto.
-3. Use **Habilitado** para ligar ou desligar o envio desse e-mail.
+3. **Habilitado** liga ou desliga o modelo.
 4. **Enviar teste** manda um exemplo para conferir o resultado.
 5. Clique em **Salvar**.
 
 ### Variáveis
 
-O texto pode usar variáveis entre chaves duplas, que o sistema troca pelos dados reais no envio. Por exemplo:
+O texto pode usar variáveis entre chaves duplas, que são trocadas pelos dados reais. Por exemplo:
 
 - `{{aluno.nome}}`, `{{chamado.protocolo}}`, `{{chamado.titulo}}`, `{{chamado.status}}`
 - `{{mensagem.conteudo}}`, `{{autor.nome}}`, `{{setor.nome}}`

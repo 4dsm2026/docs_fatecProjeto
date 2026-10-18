@@ -40,6 +40,10 @@ O menu é o mesmo para todos. O que cada perfil pode fazer em cada tela está em
 
 ## Notificações
 
-O **sino**, no canto superior direito, avisa sobre chamados novos e novas mensagens. Em **Notificações** (página *Novidades e alertas*) fica a lista completa, com **Marcar todas como lidas**.
+O **sino**, no canto superior direito, avisa sobre chamados novos, mensagens e anexos **dos chamados do seu setor** ou **atribuídos a você**. Em **Notificações** (página *Novidades e alertas*) fica a lista completa, com **Marcar todas como lidas**.
+
+:::caution Chamados sem setor não geram aviso para a equipe
+Se o chamado foi aberto sem setor (veja [como o chamado chega ao setor](../administracao/setores.md#como-o-chamado-chega-ao-setor)), ninguém da equipe é notificado. Confira a lista **Todos os Chamados** com frequência.
+:::
 
 ![Notificações da equipe](/img/manual/admin-11-notificacoes.webp)

@@ -26,15 +26,17 @@ Antes de tudo, veja [Primeiros passos](./primeiros-passos.md): como entrar, o pr
 
 ## Status de uma solicitação
 
-O aluno e a equipe veem nomes diferentes para o mesmo status:
+O mesmo status aparece com nomes diferentes em cada lugar do sistema:
 
-| A equipe vê | O aluno vê | Significado |
-|---|---|---|
-| Aberto | Solicitação recebida pela Fatec | Recebida, ainda não iniciada |
-| Em atendimento | Em análise pelo setor responsável | Alguém da equipe está cuidando |
-| Aguardando usuário | Aguardando minha ação | A equipe precisa de algo do aluno: resposta ou documento |
-| Resolvido | Respondida | O atendimento foi concluído |
-| Encerrado | Encerrada | A solicitação foi finalizada |
+| Campo **Status** (equipe) | Selo nas listas e nas páginas | Filtro do aluno | Significado |
+|---|---|---|---|
+| Aberto | Solicitação recebida pela Fatec. | Recebida pela Fatec | Recebida, ainda não iniciada |
+| Em atendimento | Em análise pelo setor responsável. | Em análise | Alguém da equipe está cuidando |
+| Aguardando usuário | Aguardando documento ou resposta do aluno. | Aguardando minha ação | A equipe precisa de algo do aluno |
+| Resolvido | Solicitação respondida. | Respondida | O atendimento foi concluído |
+| Encerrado | Atendimento finalizado. | Encerrada | A solicitação foi finalizada |
+
+A padronização desses nomes está [em discussão](https://github.com/4dsm2026/backend_fatecProjeto/issues/119).
 
 :::tip Capturas de tela
 As imagens deste manual usam os **dados de teste** do sistema (por exemplo, o aluno "João Silva - Aluno DSM"). Nenhum dado real de aluno ou servidor aparece aqui.
