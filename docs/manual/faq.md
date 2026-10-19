@@ -16,6 +16,9 @@ Sim. No primeiro acesso, a senha temporária precisa ser trocada. A nova senha p
 **Esqueci minha senha.**
 Clique em **Esqueci a senha** na tela de login. O link chega no e-mail cadastrado; confira também o spam.
 
+**A tela diz que a conta está bloqueada.**
+Foram 5 senhas erradas seguidas. Espere 15 minutos: o bloqueio sai sozinho. Se não lembrar a senha, use **Esqueci a senha**.
+
 **Entrei, mas voltei para a tela de login.**
 Sua sessão pode ter expirado. Entre de novo. Se continuar, avise a secretaria.
 

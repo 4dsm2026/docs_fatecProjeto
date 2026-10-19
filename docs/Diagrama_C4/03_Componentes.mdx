@@ -4,43 +4,62 @@ title: 03 — Componentes do Backend
 sidebar_label: 03 — Componentes
 ---
 
-# Diagrama de Componentes — API Application (Backend)
+# Diagrama de Componentes — API (Backend)
+
+Cada componente corresponde a um módulo em `src/core/<módulo>/` (rotas → controller → service) ou a um plugin/biblioteca do backend.
 
 ```mermaid
 C4Component
-    title Componentes — API Application (Backend)
+    title Componentes — API (Backend)
 
-    Container(web, "Aplicação Web", "Next.js", "FrontEnd do Sistema")
+    Container(web, "Aplicação Web", "Next.js", "Portal do Aluno e painel da Secretaria")
 
-    Container_Boundary(api, "API Application (Backend) — componentes") {
-        Component(authMw, "Auth Middleware", "Component", "Valida JWT e permissões em rotas protegidas; revoga sessões no reset de senha.")
-        Component(auth, "Auth Component", "Component", "Login, emissão/refresh de JWT, fluxo de troca obrigatória de senha.")
-        Component(tickets, "Tickets Component", "Component", "Cria e gerencia chamados; controla transições de status.")
-        Component(catalog, "Catalog Component", "Component", "Gerencia categorias e serviços do catálogo de solicitações.")
-        Component(notif, "Notifications Component", "Component", "Publica notificações in-app por preferência de usuário/setor.")
-        Component(analytics, "Analytics Component", "Component", "Agrega estatísticas de chamados em tempo real (/tickets/stats).")
-        Component(email, "Email Adapter", "Component", "Integração com AWS SES para disparo de e-mails.")
-        Component(data, "Data Access (Prisma Client)", "Component", "Camada de acesso a dados via ORM Prisma.")
+    Container_Boundary(api, "API (Fastify)") {
+        Component(authMw, "Autorização", "plugins/auth-verify", "Confere o JWT (authenticate) e o perfil (authorize) nas rotas protegidas.")
+        Component(data, "Acesso a dados", "Prisma Client", "Única porta de acesso ao banco.")
+        Component(anexos, "Anexos", "core/anexos", "Upload, lista e download de anexos dos chamados.")
+        Component(mail, "Mail Adapter", "config/mail", "Driver de e-mail: Resend ou SES.")
+        Component(auth, "Auth", "core/auth", "Login por e-mail ou RA, refresh, logout, primeiro acesso, redefinição de senha, bloqueio por tentativas.")
+        Component(tickets, "Chamados", "core/tickets", "Cria chamados (protocolo, setor pelo nome do setor provável), muda status, prioridade, nível e responsável; grava o histórico; estatísticas (/tickets/stats).")
+        Component(msgs, "Mensagens", "core/ticket-messages", "Conversa do chamado.")
+        Component(notif, "Notificações", "core/notifications + /ws", "Notificações in-app (respeita a preferência do usuário) e eventos em tempo real por WebSocket.")
+        Component(catalog, "Catálogo", "core/catalogo", "Categorias e serviços (rota pública).")
+        Component(sugestoes, "Sugestões", "core/sugestoes", "Caixa de sugestões e respostas da equipe.")
+        Component(cadastros, "Cadastros", "core/users, setores, papeis, usuario-setor", "Alunos, funcionários, setores e papéis no setor.")
+        Component(comunic, "Comunicações", "core/comunicacoes", "Modelos de e-mail editáveis. Hoje usados só pelo envio de teste.")
+        Component(audit, "Auditoria", "core/auditoria + lib/auditoria", "Registro de eventos de autenticação.")
+        Component(job, "Limpeza de anexos", "jobs/cleanupAnexos", "Tarefa periódica que remove arquivos de anexos excluídos.")
     }
 
-    ContainerDb(db, "Banco de Dados", "MySQL 8", "Container externo ao API Application")
-    System_Ext(ses, "AWS SES", "Envio de e-mails")
+    ContainerDb(db, "Banco de Dados", "MySQL 8")
+    Container(files, "Arquivos de anexos", "Disco do servidor")
+    System_Ext(email, "Provedor de e-mail", "Resend ou AWS SES")
 
-    Rel(web, authMw, "Requisições autenticadas", "HTTPS")
-    Rel(web, auth, "Login / refresh", "HTTPS")
-    Rel(authMw, tickets, "Autoriza acesso")
-    Rel(authMw, catalog, "Autoriza acesso")
-    Rel(authMw, notif, "Autoriza acesso")
-    Rel(authMw, analytics, "Autoriza acesso")
-    Rel(tickets, catalog, "Valida categoria/serviço")
-    Rel(tickets, notif, "Dispara notificação")
-    Rel(auth, email, "Envia e-mail de reset/1º acesso")
-    Rel(email, ses, "SMTP/API")
-    Rel(tickets, data, "Persiste chamado")
-    Rel(catalog, data, "Persiste categoria/serviço")
-    Rel(notif, data, "Persiste notificação")
-    Rel(analytics, data, "Consulta agregados")
+    Rel(web, authMw, "HTTPS")
+    Rel(web, auth, "Login")
+    Rel(authMw, tickets, "Libera")
+    Rel(tickets, notif, "Avisa")
+    Rel(msgs, notif, "Avisa")
+    Rel(anexos, files, "Grava")
+    Rel(auth, mail, "Links")
+    Rel(mail, email, "API")
     Rel(data, db, "SQL")
 
     UpdateLayoutConfig($c4ShapeInRow="4", $c4BoundaryInRow="1")
 ```
+
+Para o diagrama ficar legível, ele mostra só as ligações principais. As demais:
+
+- todos os módulos acessam o banco pelo **Acesso a dados**, e todas as rotas protegidas passam pela **Autorização**;
+- **Mensagens** e **Anexos** também avisam pelas **Notificações**; as mensagens vão em tempo real só para os participantes do chamado;
+- **Auth** registra os logins na **Auditoria**; **Comunicações** usa o **Mail Adapter** só no envio de teste;
+- a **Limpeza de anexos** remove do disco os arquivos de anexos excluídos.
+
+## O que ainda não existe
+
+| Descrito antes | Situação | Issue |
+|---|---|---|
+| Chamados "controla transições de status" | Qualquer status pode ir para qualquer outro | [backend#119](https://github.com/4dsm2026/backend_fatecProjeto/issues/119) |
+| Chamados "valida categoria/serviço" no catálogo | Não valida | [backend#120](https://github.com/4dsm2026/backend_fatecProjeto/issues/120) |
+| Comunicações enviando os e-mails dos eventos | Modelos não são usados nos envios | [backend#116](https://github.com/4dsm2026/backend_fatecProjeto/issues/116) |
+| Anexos no S3 | Só disco local | [backend#121](https://github.com/4dsm2026/backend_fatecProjeto/issues/121) |
