@@ -93,6 +93,8 @@ Os casos foram definidos a partir das telas e regras do frontend e das validaç�
 
 Os testes serão executados e gravados pela equipe de UX. As contas abaixo devem possuir os dados necessários para os cenários descritos neste documento.
 
+Sugestão: use as contas do seed, em ambiente local (veja o [plano de testes do sistema](./plano-de-testes.md#2-ambiente-e-dados)): **ALUNO_QA_01** = RA `123456789`, **ALUNO_QA_02** = RA `987654321`, conta administrativa = `admin@example.com`.
+
 | Dados da execução | Preenchimento |
 |---|---|
 | **Conta de aluno 1** | ________________________________________________ |
@@ -111,7 +113,7 @@ Aprovado: todos os resultados esperados foram observados e registrados. Falhou: 
 |-----------------------------|--------------------------------------------------------------------------------|------------------------|
 | **Caixa-preta**             | Execução pela interface, considerando entradas e saídas observáveis.           | Todos                  |
 | **Classes de equivalência** | E-mails válidos/inválidos; conteúdo vazio/válido; perfis aluno/staff.          | 03, 04, 05, 09, 18     |
-| **Valores-limite**          | Mínimo de 3 e máximo de 1.000 caracteres na sugestão; 500 na tela de resposta. | 05, 06, 17             |
+| **Valores-limite**          | Mínimo de 3 e máximo de 1.000 caracteres na sugestão; 500 na tela de resposta; até 3 imagens de 2 MB. | 05, 06, 17, 20, 21, 22 |
 | **Cobertura de caminhos**   | Criação, consulta, filtro, resposta parcial, finalização e bloqueios.          | 02, 08, 12, 14, 15, 16 |
 | **Permissões**              | Separação entre dados de alunos e ações administrativas.                       | 09, 11, 18             |
 
@@ -137,6 +139,24 @@ Aprovado: todos os resultados esperados foram observados e registrados. Falhou: 
 | **CT-NF2-16** | Impedir alteração após status “Respondido”                 | Regra de negócio / negativo                  | Crítica        |
 | **CT-NF2-17** | Validar limite da resposta administrativa                  | Valor-limite / compatibilidade entre camadas | Alta           |
 | **CT-NF2-18** | Impedir aluno de responder sugestão                        | Permissão / negativo                         | Crítica        |
+| **CT-NF2-19** | Enviar sugestão com texto formatado                        | Funcional positivo                           | Alta           |
+| **CT-NF2-20** | Anexar até três imagens                                    | Valor-limite / positivo                      | Alta           |
+| **CT-NF2-21** | Impedir a quarta imagem                                    | Valor-limite / negativo                      | Alta           |
+| **CT-NF2-22** | Impedir imagem maior que 2 MB                              | Valor-limite / negativo                      | Média          |
+| **CT-NF2-23** | Recusar link e imagem inseguros (API)                      | Segurança / negativo                         | Crítica        |
+
+
+## 7.1 Cobertura automatizada
+
+Estes casos também são verificados pelos testes do backend a cada PR. A execução manual continua valendo para a tela e para as evidências de UX.
+
+| Caso | Teste automático |
+|---|---|
+| CT-NF2-02 | `tests/produtos/10-sugestoes.test.ts` — cria uma sugestão simples |
+| CT-NF2-19 | `10-sugestoes.test.ts` — encaminha texto formatado e imagem; `sugestao-documento.test.ts` — aceita títulos, listas, tabela, cores e links |
+| CT-NF2-20 / 21 | `10-sugestoes.test.ts` — aceita três imagens; rejeita quatro imagens |
+| CT-NF2-23 | `sugestao-documento.test.ts` — rejeita links executáveis; `10-sugestoes.test.ts` — rejeita URL de imagem fora dos formatos |
+| CT-NF2-16 | Regra no service (`sugestoes.service.ts`): resposta e status não mudam depois de "Respondido" |
 
 # 8. Casos de teste detalhados
 
@@ -710,9 +730,165 @@ ________________________________________________________________________________
 **Observações:**  
 ________________________________________________________________________________
 
+## CT-NF2-19 - Enviar sugestão com texto formatado
+
+| **Funcionalidade**    | Editor de texto |
+|-----------------------|--------|
+| **Tipo / prioridade** | Funcional positivo \| Alta |
+| **Objetivo**          | Garantir que negrito, itálico, listas e links sejam preservados do envio até a leitura. |
+| **Pré-condições**     | Aluno autenticado. |
+| **Dados de teste**    | Usuário: ALUNO_QA_01. Texto com uma palavra em negrito, uma lista de 2 itens e um link https. |
+
+| **\#** | **Ação do executor** | **Resultado esperado** |
+|--------|----------------------|------------------------|
+| **1**  | Escrever a sugestão usando negrito, lista e um link `https://`. | O editor mostra a formatação enquanto se escreve. |
+| **2**  | Enviar e abrir a sugestão em **Sugestões enviadas**. | A formatação aparece igual ao que foi escrito. |
+| **3**  | Abrir a mesma sugestão no perfil administrativo. | A equipe vê a mesma formatação, com o link funcionando. |
+
+**Resultado obtido:**  
+________________________________________________________________________________  
+________________________________________________________________________________
+
+**Status:**
+
+- [ ] Passou
+- [ ] Falhou
+- [ ] Bloqueado
+- [ ] Não executado
+
+**Evidência:** vídeo, print ou link: ________________________________________________
+
+**Observações:**  
+________________________________________________________________________________
+
+
+## CT-NF2-20 - Anexar até três imagens
+
+| **Funcionalidade**    | Editor de texto / imagens |
+|-----------------------|--------|
+| **Tipo / prioridade** | Valor-limite / positivo \| Alta |
+| **Objetivo**          | Garantir que a sugestão aceite até 3 imagens de até 2 MB cada. |
+| **Pré-condições**     | Aluno autenticado. |
+| **Dados de teste**    | Três imagens PNG ou JPEG com menos de 2 MB cada. |
+
+| **\#** | **Ação do executor** | **Resultado esperado** |
+|--------|----------------------|------------------------|
+| **1**  | Inserir as três imagens na sugestão, com texto. | As três aparecem no editor. |
+| **2**  | Enviar. | Sugestão criada com sucesso. |
+| **3**  | Abrir a sugestão como aluno e como equipe. | As três imagens aparecem nos dois perfis. |
+
+**Resultado obtido:**  
+________________________________________________________________________________  
+________________________________________________________________________________
+
+**Status:**
+
+- [ ] Passou
+- [ ] Falhou
+- [ ] Bloqueado
+- [ ] Não executado
+
+**Evidência:** vídeo, print ou link: ________________________________________________
+
+**Observações:**  
+________________________________________________________________________________
+
+
+## CT-NF2-21 - Impedir a quarta imagem
+
+| **Funcionalidade**    | Editor de texto / imagens |
+|-----------------------|--------|
+| **Tipo / prioridade** | Valor-limite / negativo \| Alta |
+| **Objetivo**          | Garantir que o limite de 3 imagens seja respeitado. |
+| **Pré-condições**     | Aluno autenticado; sugestão com 3 imagens no editor. |
+| **Dados de teste**    | Uma quarta imagem válida. |
+
+| **\#** | **Ação do executor** | **Resultado esperado** |
+|--------|----------------------|------------------------|
+| **1**  | Tentar inserir a quarta imagem. | Mensagem "Você pode adicionar no máximo 3 imagens."; a imagem não entra. |
+| **2**  | Enviar a sugestão. | A sugestão é enviada com as 3 imagens. |
+
+**Resultado obtido:**  
+________________________________________________________________________________  
+________________________________________________________________________________
+
+**Status:**
+
+- [ ] Passou
+- [ ] Falhou
+- [ ] Bloqueado
+- [ ] Não executado
+
+**Evidência:** vídeo, print ou link: ________________________________________________
+
+**Observações:**  
+________________________________________________________________________________
+
+
+## CT-NF2-22 - Impedir imagem maior que 2 MB
+
+| **Funcionalidade**    | Editor de texto / imagens |
+|-----------------------|--------|
+| **Tipo / prioridade** | Valor-limite / negativo \| Média |
+| **Objetivo**          | Garantir que imagens acima de 2 MB sejam recusadas com mensagem clara. |
+| **Pré-condições**     | Aluno autenticado. |
+| **Dados de teste**    | Uma imagem de cerca de 3 MB. |
+
+| **\#** | **Ação do executor** | **Resultado esperado** |
+|--------|----------------------|------------------------|
+| **1**  | Tentar inserir a imagem de 3 MB. | Mensagem informando o limite; a imagem não entra no editor. |
+
+**Resultado obtido:**  
+________________________________________________________________________________  
+________________________________________________________________________________
+
+**Status:**
+
+- [ ] Passou
+- [ ] Falhou
+- [ ] Bloqueado
+- [ ] Não executado
+
+**Evidência:** vídeo, print ou link: ________________________________________________
+
+**Observações:**  
+________________________________________________________________________________
+
+
+## CT-NF2-23 - Recusar link e imagem inseguros (API)
+
+| **Funcionalidade**    | Validação do documento |
+|-----------------------|--------|
+| **Tipo / prioridade** | Segurança / negativo \| Crítica |
+| **Objetivo**          | Garantir que links `javascript:` e imagens fora de PNG, JPEG, WEBP e GIF sejam recusados mesmo sem passar pela tela. |
+| **Pré-condições**     | Roteiro técnico (pode ser executado por desenvolvedor). |
+| **Dados de teste**    | Corpo de `POST /sugestoes` com um link `javascript:alert(1)` e, em outra tentativa, uma imagem SVG. |
+
+| **\#** | **Ação do executor** | **Resultado esperado** |
+|--------|----------------------|------------------------|
+| **1**  | Enviar a sugestão com o link `javascript:` pela API, com sessão de aluno. | Resposta `400`; nada é salvo. |
+| **2**  | Enviar a sugestão com a imagem SVG. | Resposta `400`; nada é salvo. |
+
+**Resultado obtido:**  
+________________________________________________________________________________  
+________________________________________________________________________________
+
+**Status:**
+
+- [ ] Passou
+- [ ] Falhou
+- [ ] Bloqueado
+- [ ] Não executado
+
+**Evidência:** vídeo, print ou link: ________________________________________________
+
+**Observações:**  
+________________________________________________________________________________
+
+
 # 9. Registro de defeitos
 
-Preencher uma linha para cada comportamento divergente. Relacionar o defeito ao vídeo ou print correspondente.
+Cada comportamento divergente vira uma **issue** pelo modelo **Bug** no repositório certo, com o ID do caso no texto e a evidência anexada (veja o [plano de testes do sistema](./plano-de-testes.md#6-defeitos)). A tabela abaixo serve de índice: anote o número da issue na coluna **Defeito**.
 
 | **Defeito** | **Caso** | **Resumo** | **Severidade** | **Status** | **Evidência** |
 |-------------|----------|------------|----------------|------------|---------------|
@@ -729,9 +905,14 @@ Preencher uma linha para cada comportamento divergente. Relacionar o defeito ao 
 
 **Divergência de limite da resposta:** a tela administrativa limita a resposta a 500 caracteres, enquanto a validação do backend permite até 1.000. O CT-NF2-17 deve produzir evidência para que a equipe decida qual limite é o requisito correto e alinhe as duas camadas.
 
+
+**Situação em 20/10/2026:** a divergência continua (tela 500, API 1.000) e está registrada em [frontend#252](https://github.com/4dsm2026/frontend_fatecProjeto/issues/252).
+
+**Envio anônimo:** a história US6.2 previa a opção de enviar a sugestão de forma anônima, e a funcionalidade foi entregue sempre identificada. A decisão está em [backend#125](https://github.com/4dsm2026/backend_fatecProjeto/issues/125); se mudar, este plano precisa de casos novos.
+
 # 11. Encerramento
 
-| **Total executado** | \_\_\_\_\_\_ de 18 casos                                                                                                     |
+| **Total executado** | \_\_\_\_\_\_ de 23 casos                                                                                                     |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
 | **Passou**          | \_\_\_\_\_\_                                                                                                                 |
 | **Falhou**          | \_\_\_\_\_\_                                                                                                                 |
