@@ -38,6 +38,8 @@ O mesmo status aparece com nomes diferentes em cada lugar do sistema:
 
 A padronização desses nomes está [em discussão](https://github.com/4dsm2026/backend_fatecProjeto/issues/119).
 
+Como um chamado passa de um status para outro está em [Ciclo de vida do chamado](/processes/ciclo-de-vida-chamado).
+
 :::tip Capturas de tela
 As imagens deste manual usam os **dados de teste** do sistema (por exemplo, o aluno "João Silva - Aluno DSM"). Nenhum dado real de aluno ou servidor aparece aqui.
 :::
