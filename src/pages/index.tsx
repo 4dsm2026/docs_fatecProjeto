@@ -2,66 +2,65 @@ import type { ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 import {
-  Rocket,
-  Ruler,
+  GraduationCap,
+  Users,
+  Settings,
   Workflow,
   Layers,
-  GitBranch,
-  Palette,
+  ClipboardCheck,
 } from 'lucide-react';
 
 type CardItem = {
   icon: ReactNode;
   title: string;
   description: string;
-  href: string; // caminho relativo ao baseUrl, dentro de /docs_fatecProjeto/
+  to: string; // caminho dentro do site; o Link aplica o baseUrl sozinho
 };
 
 const cards: CardItem[] = [
   {
-    icon: <Rocket size={24} />,
-    title: 'Como Começar',
-    description: 'Primeiros passos para começar a trabalhar com o Workflow.',
-    href: '/docs_fatecProjeto/getting_started',
+    icon: <GraduationCap size={24} />,
+    title: 'Sou aluno',
+    description: 'Abrir e acompanhar solicitações, conversar com a secretaria, enviar sugestões.',
+    to: '/manual/aluno/visao-geral',
   },
   {
-    icon: <Ruler size={24} />,
-    title: 'Guia de boas práticas',
-    description: 'Padrões, recomendações e práticas para manter o projeto organizado.',
-    href: '/docs_fatecProjeto/good_practices',
+    icon: <Users size={24} />,
+    title: 'Secretaria e equipe técnica',
+    description: 'Atender chamados, mudar status e prioridade, responder sugestões, relatórios.',
+    to: '/manual/equipe/visao-geral',
+  },
+  {
+    icon: <Settings size={24} />,
+    title: 'Administração',
+    description: 'Cadastro de alunos, funcionários e setores, modelos de e-mail e permissões.',
+    to: '/manual/administracao/alunos',
   },
   {
     icon: <Workflow size={24} />,
-    title: 'Processos',
-    description: 'Fluxos de trabalho, desenvolvimento e colaboração da equipe.',
-    href: '/docs_fatecProjeto/processes',
+    title: 'Processos e regras',
+    description: 'Solicitações acadêmicas, histórias de usuário e o fluxo de atendimento (BPMN).',
+    to: '/processes',
   },
   {
     icon: <Layers size={24} />,
-    title: 'Diagrama — C4',
-    description: 'Visão da arquitetura do sistema em diferentes níveis de abstração.',
-    href: '/docs_fatecProjeto/Diagrama_C4',
+    title: 'Arquitetura',
+    description: 'Como o sistema é organizado, nos diagramas C4.',
+    to: '/Diagrama_C4',
   },
   {
-    icon: <GitBranch size={24} />,
-    title: 'Diagrama_BPMN',
-    description: 'Modelagem dos processos de negócio e fluxos da aplicação.',
-    href: '/docs_fatecProjeto/Diagrama_bpmn',
-  },
-  {
-    icon: <Palette size={24} />,
-    title: 'UI & UX',
-    description: 'Diretrizes de interface, experiência e identidade visual.',
-    href: '/docs_fatecProjeto/ui_ux',
+    icon: <ClipboardCheck size={24} />,
+    title: 'Qualidade e UX',
+    description: 'Planos de teste, evidências e melhorias de experiência.',
+    to: '/ui_ux',
   },
 ];
 
-function WorkflowCard({ icon, title, description, href }: CardItem) {
+function WorkflowCard({ icon, title, description, to }: CardItem) {
   return (
-    <Link className={styles.workflowCard} to={useBaseUrl(href)}>
+    <Link className={styles.workflowCard} to={to}>
       <div className={styles.workflowCardIcon}>{icon}</div>
       <div>
         <h2>{title}</h2>
@@ -75,23 +74,17 @@ function HeroSection() {
   return (
     <header className={styles.heroBanner}>
       <div className="container">
-        <h1 className={styles.heroTitle}>WorkFlow</h1>
+        <h1 className={styles.heroTitle}>WorkFlow FATEC</h1>
         <p className={styles.heroSubtitle}>
-          Documentação central do projeto — fluxos, arquitetura e padrões
-          usados pela equipe no desenvolvimento do sistema.
+          Portal de atendimento acadêmico da Fatec. Aqui está o manual de uso
+          para alunos e equipe, e a documentação de como o sistema funciona.
         </p>
         <div className={styles.buttons}>
-          <Link
-            className="button button--primary button--lg"
-            to={useBaseUrl('/docs_fatecProjeto/getting_started/')}>
-            Ver a documentação
+          <Link className="button button--primary button--lg" to="/manual">
+            Abrir o manual
           </Link>
-          <Link
-            className={`button button--lg ${styles.buttonOutline}`}
-            href="https://github.com/4dsm2026/docs_fatecProjeto"
-            target="_blank"
-            rel="noopener noreferrer">
-            Repositório no GitHub
+          <Link className={`button button--lg ${styles.buttonOutline}`} to="/novidades">
+            Novidades
           </Link>
         </div>
       </div>
@@ -103,9 +96,7 @@ export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <Layout
-      title={siteConfig.title}
-      description="Documentação oficial do projeto WorkFlow Fatec">
+    <Layout title={siteConfig.title} description={siteConfig.tagline}>
       <HeroSection />
       <main className="container margin-vert--xl" style={{ maxWidth: '960px' }}>
         <div className={styles.workflowCards}>

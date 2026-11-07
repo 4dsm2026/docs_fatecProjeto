@@ -10,28 +10,35 @@ sidebar_label: 02 — Containers
 C4Container
     title Containers — Sistema WorkFlow FATEC
 
-    Person(aluno, "Aluno", "Usuário Estudante")
-    Person(secretaria, "Secretaria / BackOffice", "Usuário Administrativa")
-    Person(setor, "Setor Responsável", "Usuário do Setor")
+    Person(aluno, "Aluno", "Portal do Aluno")
+    Person(equipe, "Equipe da Fatec", "Secretaria, equipe técnica e administração")
 
     System_Boundary(workflow, "Sistema WorkFlow FATEC") {
-        Container(web, "Aplicação Web (Frontend)", "Next.js, React", "Interface web para aluno, secretaria e setor. Faz login e protege rotas /admin e /aluno via middleware JWT.")
-        Container(api, "API Application (Backend)", "Node.js, Express, tsx", "Expõe API REST/JSON. Autenticação JWT, chamados, catálogo, notificações e analytics.")
-        ContainerDb(db, "Banco de Dados", "MySQL 8", "Armazena usuários, chamados, categorias/serviços, notificações e histórico de status.")
-        Container(adminer, "Adminer", "Ferramenta Web (dev)", "Interface de administração do banco, usada apenas em ambiente de desenvolvimento.")
+        Container(web, "Aplicação Web", "Next.js 15, React 19", "Portal do Aluno e painel da Secretaria. O middleware confere o JWT e separa /aluno e /admin por perfil.")
+        Container(api, "API", "Node.js 20, Fastify 5, TypeScript", "REST/JSON: autenticação, chamados, mensagens, anexos, catálogo, sugestões, notificações, relatórios. WebSocket em /ws.")
+        ContainerDb(db, "Banco de Dados", "MySQL 8, Prisma", "Usuários, setores, chamados, histórico de status, mensagens, anexos (metadados), sugestões, notificações, auditoria.")
+        Container(files, "Arquivos de anexos", "Disco do servidor", "Conteúdo dos anexos. O driver S3 ainda não foi implementado.")
+        Container(adminer, "Adminer", "Somente desenvolvimento", "Interface web para inspecionar o banco local.")
     }
 
-    System_Ext(ses, "AWS SES", "Envio de e-mails")
-    System_Ext(cicd, "Pipeline CI/CD", "GitHub Actions → ECS Fargate")
+    System_Ext(email, "Provedor de e-mail", "Resend ou AWS SES")
+    System_Ext(gha, "GitHub Actions", "CI, releases e deploy manual do backend na AWS ECS Fargate")
 
     Rel(aluno, web, "Usa", "HTTPS")
-    Rel(secretaria, web, "Usa", "HTTPS")
-    Rel(setor, web, "Usa", "HTTPS")
-    Rel(web, api, "Faz chamadas JSON", "HTTPS/fetch")
-    Rel(api, db, "Lê/grava", "Prisma ORM / SQL")
-    Rel(api, ses, "Envia e-mails", "SMTP/API")
+    Rel(equipe, web, "Usa", "HTTPS")
+    Rel(web, api, "Chama a API", "HTTPS/JSON")
+    Rel(web, api, "Recebe eventos em tempo real", "WebSocket")
+    Rel(api, db, "Lê e grava", "Prisma/SQL")
+    Rel(api, files, "Grava e lê anexos")
+    Rel(api, email, "Envia e-mails", "API")
     Rel(adminer, db, "Administra (dev)", "SQL")
-    Rel(cicd, api, "Build e deploy", "containers")
+    Rel(gha, api, "Testa e publica")
 
     UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
+
+:::warning Anexos em produção
+O deploy na AWS ECS Fargate usa `STORAGE_DRIVER=s3`, mas a API grava os anexos sempre no disco do container, que é apagado a cada novo deploy ou reinício. [backend#121](https://github.com/4dsm2026/backend_fatecProjeto/issues/121).
+:::
+
+Explicação de cada container em [Documentação dos Diagramas C4](./Explicando_Diagrama_C4.md#2-diagrama-de-container).

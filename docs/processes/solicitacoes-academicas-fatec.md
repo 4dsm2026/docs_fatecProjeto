@@ -5,6 +5,27 @@ frontend e backend das próximas sprints do módulo de solicitações acadêmica
 Ele deve ser validado com secretaria, coordenação e direção antes da criação
 definitiva do catálogo de serviços.
 
+:::info Levantamento inicial (setembro de 2026)
+Este documento é a **especificação de partida** do módulo de solicitações acadêmicas, não a descrição do sistema. A tabela abaixo mostra o que já foi implementado (conferido com `develop` em outubro de 2026). Para o uso do sistema, veja o [manual do usuário](/manual).
+:::
+
+## Situação da implementação
+
+| Seção | Situação | Issue |
+|---|---|---|
+| 3. Categorias iniciais | ✅ As 7 categorias estão no catálogo institucional | — |
+| 4. Nomenclatura | ⚠️ O aluno vê "solicitação", a equipe vê "chamado"; cada status aparece com três nomes | [backend#119](https://github.com/4dsm2026/backend_fatecProjeto/issues/119) |
+| 5. Matriz de serviços e SLA | ⚠️ Serviços no catálogo; o SLA não é aplicado aos chamados | [backend#115](https://github.com/4dsm2026/backend_fatecProjeto/issues/115) |
+| 6. Campos comuns | ✅ O assistente pede os dados acadêmicos e o aceite na revisão; nome, e-mail e telefone vêm do cadastro (Meus dados) | — |
+| 7.1 Abertura pelo aluno | ✅ Implementado, exceto o SLA | [backend#115](https://github.com/4dsm2026/backend_fatecProjeto/issues/115) |
+| 7.2 Triagem | ⚠️ Status, responsável e histórico existem; a pendência é pedida pela conversa, com o status "Aguardando usuário"; não há triagem da Secretaria antes do setor | [backend#114](https://github.com/4dsm2026/backend_fatecProjeto/issues/114) · [backend#119](https://github.com/4dsm2026/backend_fatecProjeto/issues/119) |
+| 7.3 Encaminhamento | 🕓 Planejado | [frontend#251](https://github.com/4dsm2026/frontend_fatecProjeto/issues/251) · [backend#124](https://github.com/4dsm2026/backend_fatecProjeto/issues/124) |
+| 7.4 Resposta ao aluno | ✅ Conversa, anexos e notificação no sistema; sem e-mail | [backend#116](https://github.com/4dsm2026/backend_fatecProjeto/issues/116) |
+| 7.5 Resolução | ⚠️ Resolvido/Encerrado e data de conclusão; sem registro de resultado (deferido/indeferido) | [backend#123](https://github.com/4dsm2026/backend_fatecProjeto/issues/123) |
+| 9. Auditoria de status e setor | ⚠️ Mudanças de status ficam no histórico do chamado; mudança de setor ainda não existe | [frontend#251](https://github.com/4dsm2026/frontend_fatecProjeto/issues/251) |
+| 9. Perfis (coordenação, professor, direção) | 🕓 Hoje: aluno, Backoffice, Técnico e Administrador | [backend#124](https://github.com/4dsm2026/backend_fatecProjeto/issues/124) |
+| 10. Status oficiais e mensagens padrão | 🕓 Em decisão | [backend#119](https://github.com/4dsm2026/backend_fatecProjeto/issues/119) |
+
 ## 1. Objetivo
 
 - Levantar, padronizar e documentar os processos mais frequentes da Unidade

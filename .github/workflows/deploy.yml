@@ -1,7 +1,12 @@
 name: Deploy Docusaurus to GitHub Pages
 
+# Em PRs: só monta o site (link quebrado falha aqui, antes do merge).
+# Em main: monta e publica no GitHub Pages.
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -11,8 +16,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'push' && 'pages' || format('pr-{0}', github.ref) }}
+  cancel-in-progress: ${{ github.event_name != 'push' }}
 
 jobs:
   build:
@@ -35,12 +40,14 @@ jobs:
         run: npm run build
 
       - name: Upload Pages artifact
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: build
 
   deploy:
     name: Deploy to GitHub Pages
+    if: github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

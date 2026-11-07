@@ -1,14 +1,124 @@
 ---
 title: Fluxo de Abertura e Atendimento de Chamados
-description: Processo BPMN convertido do diagrama original (drawio) — raias USUÁRIO, SISTEMA e SETOR RESPONSÁVEL.
+description: Processo de atendimento como funciona no sistema, em três raias (Aluno, Sistema e Equipe do setor), e a versão original de planejamento.
 slug: /Diagrama_bpmn
 ---
 
 # Fluxo de Abertura e Atendimento de Chamados
 
-Este documento descreve o processo representado no diagrama BPMN original (`BPMN_Projet.drawio`), organizado em três raias (*swimlanes*): **Usuário**, **Sistema** e **Setor Responsável**.
+Este é o processo **como o sistema funciona hoje** (conferido com o código de `develop` em outubro de 2026), organizado em três raias: **Aluno**, **Sistema** e **Equipe do setor**. A versão original, de planejamento, está no [fim da página](#versão-original-planejamento).
 
 ## Diagrama
+
+```mermaid
+flowchart TD
+    subgraph ALUNO["👤 ALUNO"]
+        A1((Abre o portal))
+        A2[Entra com RA e senha]
+        A3[Troca a senha temporária]
+        A4[Escolhe o serviço no catálogo]
+        A5[Preenche o assistente: dados acadêmicos, campos do serviço, documentos]
+        A6[Revisa e envia]
+        A7[Responde na conversa ou anexa o que foi pedido]
+        A8[Lê a resposta]
+    end
+
+    subgraph SISTEMA["💻 SISTEMA"]
+        S1{Senha correta?}
+        S2[401 · após 5 erros, bloqueia por 15 min]
+        S3{Primeiro acesso?}
+        S4{Campos obrigatórios preenchidos?}
+        S5[Cria o chamado · protocolo TCK-XXXXXX · status ABERTO · histórico]
+        S6[Associa o setor pelo nome do setor provável]
+        S7[Notifica solicitante, responsável e membros do setor]
+        S8[Notifica o aluno da mudança de status]
+        S9((Fim))
+    end
+
+    subgraph EQUIPE["🏢 EQUIPE DO SETOR"]
+        E1[Vê o chamado em Todos os Chamados]
+        E2[Status: EM ATENDIMENTO]
+        E3{Precisa de algo do aluno?}
+        E4[Pede na conversa · status: AGUARDANDO USUÁRIO]
+        E5[Lê a resposta e volta para EM ATENDIMENTO]
+        E6[Atende e registra a resposta na conversa]
+        E7[Status: RESOLVIDO]
+        E8[Status: ENCERRADO]
+        E9[Reabrir · volta para ABERTO]
+    end
+
+    A1 --> A2 --> S1
+    S1 -- Não --> S2 --> A2
+    S1 -- Sim --> S3
+    S3 -- Sim --> A3 --> A4
+    S3 -- Não --> A4
+    A4 --> A5 --> S4
+    S4 -- Não --> A5
+    S4 -- Sim --> A6 --> S5 --> S6 --> S7 --> E1
+    E1 --> E2 --> S8
+    E2 --> E3
+    E3 -- Sim --> E4 --> S8
+    E4 --> A7 --> E5 --> E3
+    E3 -- Não --> E6 --> E7 --> S8
+    E7 --> A8
+    A8 -- Algo pendente --> E9 --> E2
+    E7 --> E8 --> S9
+```
+
+## Etapas por raia
+
+### 👤 Aluno
+
+| Etapa | Descrição |
+|---|---|
+| Entra com RA e senha | Aba **Aluno (RA)** da tela de login |
+| Troca a senha temporária | Só no primeiro acesso: a API responde `428` e o portal abre a tela de primeiro acesso |
+| Escolhe o serviço no catálogo | Por categoria ou busca; "Não encontrei o que preciso" abre uma solicitação geral |
+| Preenche o assistente | 5 etapas: serviço, dados acadêmicos, campos específicos, documentos, revisão |
+| Revisa e envia | O chamado só é criado neste momento |
+| Responde na conversa | Complementação pelo **chat** e por **novos anexos**, no mesmo chamado (não preenche o formulário de novo) |
+| Lê a resposta | Na página da solicitação; o aviso chega pelo sino |
+
+### 💻 Sistema
+
+| Etapa | Descrição |
+|---|---|
+| Senha correta? | Errou: `401`. Após **5 erros seguidos**, a conta fica bloqueada por **15 minutos** (`423`) |
+| Primeiro acesso? | Conta com senha temporária precisa trocá-la antes de entrar |
+| Campos obrigatórios? | Validação do assistente antes de avançar |
+| Cria o chamado | Protocolo, status **ABERTO** e primeiro registro no histórico de status |
+| Associa o setor | Procura um setor cujo nome contenha o "setor provável" do serviço; sem correspondência, o chamado fica **sem setor** ([backend#114](https://github.com/4dsm2026/backend_fatecProjeto/issues/114)) |
+| Notifica | Notificação in-app (sino) para solicitante, responsável e membros do setor. **Não envia e-mail** ([backend#116](https://github.com/4dsm2026/backend_fatecProjeto/issues/116)) |
+| Notifica mudança de status | A cada mudança, o aluno (e o responsável) recebem aviso; em **EM ATENDIMENTO**, também o setor |
+
+### 🏢 Equipe do setor
+
+| Etapa | Descrição |
+|---|---|
+| Vê o chamado | Lista **Todos os Chamados** (ou Kanban), com filtros |
+| EM ATENDIMENTO | Alguém começou a atender |
+| Precisa de algo do aluno? | Se sim, pede na conversa e muda para **AGUARDANDO USUÁRIO** |
+| Lê a resposta | Quando o aluno responde, o status **não volta sozinho**: a equipe muda para EM ATENDIMENTO ([backend#117](https://github.com/4dsm2026/backend_fatecProjeto/issues/117)) |
+| RESOLVIDO / ENCERRADO | Resolvido: pedido atendido. Encerrado: nada mais a fazer. A diferença entre os dois ainda será definida ([backend#119](https://github.com/4dsm2026/backend_fatecProjeto/issues/119)) |
+| Reabrir | Volta o chamado para ABERTO |
+
+## Previsto, mas ainda não implementado
+
+| Etapa prevista | Issue |
+|---|---|
+| Encaminhar o chamado para outro setor | [frontend#251](https://github.com/4dsm2026/frontend_fatecProjeto/issues/251) |
+| Triagem pela Secretaria antes do setor | Hoje o chamado vai direto ao setor provável |
+| Prazo (SLA) por serviço | [backend#115](https://github.com/4dsm2026/backend_fatecProjeto/issues/115) |
+| E-mails nos eventos do chamado | [backend#116](https://github.com/4dsm2026/backend_fatecProjeto/issues/116) |
+| Registrar o resultado (deferido/indeferido) | [backend#123](https://github.com/4dsm2026/backend_fatecProjeto/issues/123) |
+| Regras de transição entre status | [backend#119](https://github.com/4dsm2026/backend_fatecProjeto/issues/119) |
+
+## Versão original (planejamento)
+
+Diagrama BPMN de planejamento (`BPMN_Projet.drawio`, setembro de 2026), mantido como registro. As diferenças para o sistema atual estão em [docs#11](https://github.com/4dsm2026/docs_fatecProjeto/issues/11).
+
+<details>
+<summary>Ver o diagrama original</summary>
 
 ```mermaid
 flowchart TD
@@ -79,58 +189,4 @@ flowchart TD
     B31 --> A14
 ```
 
-> **Nota:** no diagrama original, a tarefa *"Triagem do chamado"* (raia Setor Responsável) conecta-se diretamente à decisão *"Solicitação completa?"* (raia Usuário), em vez de seguir para *"Analisa demanda"*. Essa ligação foi preservada fielmente aqui; vale confirmar se ela reflete a intenção real do processo ou se é um ajuste pendente no diagrama.
-
-## Etapas por raia
-
-### 👤 Usuário
-
-| Etapa | Tipo | Descrição |
-|---|---|---|
-| Abre o sistema | Evento de início | Usuário inicia o acesso ao sistema |
-| Realiza login | Tarefa | Informa credenciais de acesso |
-| Escolhe categoria e serviço | Tarefa | Seleciona o tipo de solicitação |
-| Preenche dados e anexos | Tarefa | Preenche formulário e anexa documentos |
-| Define setor provável | Tarefa | Sistema/usuário indica o setor provável de destino |
-| Solicitação completa? | Decisão | Verifica se a triagem considerou a solicitação completa |
-
-### 💻 Sistema
-
-| Etapa | Tipo | Descrição |
-|---|---|---|
-| Credenciais válidas? | Decisão | Valida login informado |
-| Exibe erro/bloqueia acesso | Tarefa | Login inválido → bloqueio |
-| Fim - Acesso negado | Evento de fim | Encerra o processo por falha de autenticação |
-| Dados obrigatórios preenchidos? | Decisão | Confere se os campos obrigatórios foram preenchidos |
-| Solicita complementação | Tarefa | Pede ao usuário dados faltantes (retorna ao preenchimento) |
-| Confirma envio da solicitação | Tarefa | Confirma o envio da solicitação preenchida |
-| Valida autenticação e permissões | Tarefa | Revalida sessão/permissões antes de criar o chamado |
-| Cria chamado/Ticket | Tarefa | Gera o chamado no sistema |
-| Registra status inicial | Tarefa | Define o status inicial do chamado |
-| Publica notificação para setor e alunos | Tarefa | Notifica as partes interessadas |
-| Encaminha para o setor responsável | Tarefa | Direciona o chamado ao setor competente |
-| Solicita dados ou anexos ao aluno | Tarefa | Pede informações adicionais ao aluno |
-| STATUS: AGUARDANDO_USUÁRIO | Marcador de status | Chamado aguardando retorno do aluno |
-| Notifica aluno para complementação | Tarefa | Avisa o aluno sobre pendência (retorna ao preenchimento) |
-| STATUS: RESOLVIDO_ENCERRADO | Marcador de status | Chamado finalizado com resolução |
-| Fim - Processo concluído | Evento de fim | Encerra o processo com sucesso |
-
-### 🏢 Setor Responsável
-
-| Etapa | Tipo | Descrição |
-|---|---|---|
-| Triagem do chamado | Tarefa | Setor realiza a triagem inicial do chamado |
-| Analisa demanda | Tarefa | Analisa o conteúdo da solicitação |
-| Precisa da resposta do aluno? | Decisão | Verifica se é necessário retorno do aluno |
-| Atende e registra resposta | Tarefa | Atende a demanda diretamente |
-| Define resolução | Tarefa | Registra a resolução do chamado |
-
-## Caminhos principais
-
-1. **Login inválido:** Realiza login → Credenciais válidas? (Não) → Exibe erro/bloqueia acesso → Fim (Acesso negado).
-2. **Dados incompletos no formulário:** Preenche dados e anexos → Dados obrigatórios preenchidos? (Não) → Solicita complementação → volta a Preenche dados e anexos.
-3. **Fluxo feliz até a triagem:** Login válido → Escolhe categoria/serviço → Preenche dados e anexos → Confirma envio → Valida autenticação/permissões → Cria chamado → Define setor provável → Registra status inicial → Publica notificação → Triagem do chamado.
-4. **Triagem incompleta:** Solicitação completa? (Não) → Solicita dados ou anexos ao aluno → volta a Publica notificação.
-5. **Triagem completa e análise do setor:** Solicitação completa? (Sim) → Encaminha para o setor responsável → Analisa demanda → Precisa da resposta do aluno?
-   - **Sim:** STATUS AGUARDANDO_USUÁRIO → Notifica aluno para complementação → volta a Preenche dados e anexos.
-   - **Não:** Atende e registra resposta → Define resolução → STATUS RESOLVIDO_ENCERRADO → Fim (Processo concluído).
+</details>

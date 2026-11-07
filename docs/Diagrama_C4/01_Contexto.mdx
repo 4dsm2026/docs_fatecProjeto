@@ -11,18 +11,22 @@ slug: /Diagrama_C4
 C4Context
     title Sistema WorkFlow FATEC — Contexto
 
-    Person(aluno, "Aluno", "Abre, acompanha e complementa solicitações/chamados junto ao sistema.")
-    Person(secretaria, "Secretaria / BackOffice", "Faz triagem, gerencia chamados e administra o sistema (RA, categorias, etc.).")
-    Person(setor, "Setor Responsável", "Analisa a demanda encaminhada e registra a resolução do chamado.")
+    Person(aluno, "Aluno", "Abre solicitações pelo catálogo, acompanha o andamento e conversa com a equipe.")
+    Person(secretaria, "Secretaria (Backoffice)", "Atende e organiza os chamados, responde sugestões, acompanha relatórios.")
+    Person(tecnico, "Equipe técnica", "Atende os chamados técnicos do seu setor.")
+    Person(admin, "Administrador", "Cadastra alunos, funcionários e setores; edita modelos de e-mail.")
 
-    System(workflow, "Sistema WorkFlow FATEC", "Permite abertura, triagem, encaminhamento e resolução de chamados/solicitações acadêmicas dos alunos junto aos setores da FATEC.")
+    System(workflow, "Sistema WorkFlow FATEC", "Portal de atendimento acadêmico: solicitações, conversa, anexos, sugestões, notificações e relatórios.")
 
-    System_Ext(ses, "AWS SES", "Serviço de envio de e-mails transacionais (reset de senha, primeiro acesso).")
+    System_Ext(email, "Provedor de e-mail", "Resend (padrão) ou AWS SES. Hoje envia só os links de primeiro acesso e de redefinição de senha.")
 
-    Rel(aluno, workflow, "Abre e acompanha chamados", "HTTPS")
-    Rel(secretaria, workflow, "Faz triagem e gestão", "HTTPS")
-    Rel(setor, workflow, "Analisa e responde chamados", "HTTPS")
-    Rel(workflow, ses, "Envia e-mails", "SMTP/API")
+    Rel(aluno, workflow, "Abre e acompanha solicitações", "HTTPS")
+    Rel(secretaria, workflow, "Atende chamados", "HTTPS")
+    Rel(tecnico, workflow, "Atende chamados", "HTTPS")
+    Rel(admin, workflow, "Administra cadastros", "HTTPS")
+    Rel(workflow, email, "Envia e-mails", "API")
 
-    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+    UpdateLayoutConfig($c4ShapeInRow="4", $c4BoundaryInRow="1")
 ```
+
+Atualizado em outubro de 2026 a partir do código de `develop`. A explicação de cada elemento está em [Documentação dos Diagramas C4](./Explicando_Diagrama_C4.md).
