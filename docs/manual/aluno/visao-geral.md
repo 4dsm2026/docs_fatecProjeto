@@ -7,7 +7,7 @@ title: Visão geral do portal
 
 Depois de entrar, você chega à **Visão Geral**: um resumo das suas solicitações.
 
-![Visão Geral do Portal do Aluno](/img/manual/aluno-03-visao-geral.webp)
+![Visão Geral do Portal do Aluno](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-03-visao-geral)
 
 ## Os quatro indicadores
 
@@ -41,4 +41,4 @@ Se esse número for maior que zero, a secretaria está esperando por você. A so
 
 O portal se adapta à tela do celular. O menu fica no botão **Menu**, logo abaixo da saudação.
 
-![Portal do Aluno no celular](/img/manual/aluno-18-celular.webp)
+![Portal do Aluno no celular](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-18-celular)

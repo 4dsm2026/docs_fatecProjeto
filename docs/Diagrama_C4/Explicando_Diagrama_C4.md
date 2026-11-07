@@ -138,5 +138,5 @@ Os diagramas destas páginas são escritos em **Mermaid**, dentro dos próprios 
 
 Versões originais (setembro de 2026), mantidas como referência histórica:
 
-- [C4_WorkFlow_FATEC.drawio](/diagramas/C4_WorkFlow_FATEC.drawio) (abra em [diagrams.net](https://app.diagrams.net/));
-- [Explicando o Diagrama C4 (PDF)](/diagramas/explicando-o-diagrama-c4.pdf).
+- [C4_WorkFlow_FATEC.drawio](https://drive.google.com/uc?export=download&id=1K1O2E2zXxxhtA2aECApGW-YBELHsgeS9) (abra em [diagrams.net](https://app.diagrams.net/));
+- [Explicando o Diagrama C4 (PDF)](https://drive.google.com/uc?export=download&id=1h2psUXONdWvhJ7Qo6W9KpRKxUOTl_ZXl).

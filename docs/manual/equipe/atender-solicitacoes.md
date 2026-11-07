@@ -9,7 +9,7 @@ title: Atender solicitações
 
 Em **Todos os Chamados** ficam todas as solicitações abertas pelos alunos.
 
-![Lista de chamados](/img/manual/admin-02-chamados.webp)
+![Lista de chamados](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-02-chamados)
 
 - **Lista** ou **Kanban**: alterne entre a tabela e o quadro com uma coluna por status.
 - **Busca** por protocolo, título, solicitante ou responsável.
@@ -18,7 +18,7 @@ Em **Todos os Chamados** ficam todas as solicitações abertas pelos alunos.
 
 ## O chamado por dentro
 
-![Detalhe de um chamado](/img/manual/admin-03-chamado-detalhe.webp)
+![Detalhe de um chamado](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-03-chamado-detalhe)
 
 | Bloco | O que mostra |
 |---|---|

@@ -7,7 +7,7 @@ title: Visão geral do painel
 
 Funcionários entram pela aba **Funcionário** da tela de login e chegam ao painel da **Secretaria**.
 
-![Painel da Secretaria: Visão Geral](/img/manual/admin-01-visao-geral.webp)
+![Painel da Secretaria: Visão Geral](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-01-visao-geral)
 
 ## Perfis da equipe
 
@@ -46,4 +46,4 @@ O **sino**, no canto superior direito, avisa sobre chamados novos, mensagens e a
 Se o chamado foi aberto sem setor (veja [como o chamado chega ao setor](../administracao/setores.md#como-o-chamado-chega-ao-setor)), ninguém da equipe é notificado. Confira a lista **Todos os Chamados** com frequência.
 :::
 
-![Notificações da equipe](/img/manual/admin-11-notificacoes.webp)
+![Notificações da equipe](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-11-notificacoes)

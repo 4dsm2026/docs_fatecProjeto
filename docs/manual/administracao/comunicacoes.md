@@ -7,7 +7,7 @@ title: Comunicações (e-mails)
 
 Em **Comunicações**, o administrador edita os modelos dos e-mails do sistema.
 
-![Comunicações](/img/manual/admin-07-comunicacoes.webp)
+![Comunicações](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-07-comunicacoes)
 
 :::warning Os modelos ainda não são usados nos envios automáticos
 Hoje, o sistema envia por e-mail apenas o **link de primeiro acesso** e o de **redefinição de senha**, com um texto fixo. Os modelos desta tela ficam guardados e podem ser testados com **Enviar teste**, mas abertura de chamado, mudança de status, mensagens e anexos **não geram e-mail**: esses avisos chegam só pelas [notificações do sistema](../aluno/notificacoes.md). A ligação dos modelos aos envios está [planejada](https://github.com/4dsm2026/backend_fatecProjeto/issues/116).

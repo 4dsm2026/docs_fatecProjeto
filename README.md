@@ -35,7 +35,6 @@ docs/
 ├── Diagrama_C4/      # Arquitetura                    │
 └── ui_ux/            # Qualidade e UX                 ┘
 blog/                 # Novidades: um arquivo por versão
-static/img/manual/    # Capturas de tela do manual
 src/pages/index.tsx   # Página inicial
 sidebars.ts           # Menus laterais
 ```
@@ -67,9 +66,13 @@ O `npm ci` também ativa os hooks do git (veja o [guia de contribuição](https:
 
 ### Imagens
 
-- Salve em `static/img/<seção>/` e use em Markdown com `![descrição](/img/<seção>/arquivo.webp)`.
-- Prefira **WebP** com até ~300 KB. Para converter: `cwebp -q 88 tela.png -o tela.webp`.
+As capturas de tela do manual **não ficam no repositório**: ficam no Cloudinary (conta `vslablah`, pasta `fatec/manual` só para organizar), para o repositório não crescer.
+
+- Converta para **WebP** (até ~300 KB): `cwebp -q 88 tela.png -o tela.webp`.
+- Envie o arquivo para a pasta `fatec/manual` no Cloudinary, **mantendo o nome** (ex.: `aluno-19-exemplo.webp`). O nome do arquivo (sem a extensão) é o que vai na URL; a pasta não entra. Use nomes únicos.
+- Use em Markdown **sem a extensão**: `![descrição](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-19-exemplo)`.
 - Capturas de tela **só com dados de teste**, nunca com dados reais de alunos ou servidores.
+- Logo e favicon continuam em `static/img/`, pois o build do site precisa deles.
 
 ### Vídeos, PDFs e arquivos grandes
 

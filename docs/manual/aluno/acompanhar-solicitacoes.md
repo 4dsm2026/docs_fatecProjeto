@@ -9,7 +9,7 @@ title: Acompanhar solicitações
 
 Em **Minhas solicitações** ficam todas as solicitações que você abriu.
 
-![Minhas solicitações](/img/manual/aluno-10-minhas-solicitacoes.webp)
+![Minhas solicitações](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-10-minhas-solicitacoes)
 
 - **Busca** por protocolo ou título.
 - **Filtro por status**: Recebida pela Fatec, Em análise, Aguardando minha ação, Respondida, Encerrada.
@@ -18,7 +18,7 @@ Em **Minhas solicitações** ficam todas as solicitações que você abriu.
 
 ## Página da solicitação
 
-![Página de uma solicitação, com a resposta da secretaria](/img/manual/aluno-10b-solicitacao-detalhe.webp)
+![Página de uma solicitação, com a resposta da secretaria](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-10b-solicitacao-detalhe)
 
 A página mostra:
 

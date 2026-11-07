@@ -10,6 +10,10 @@ slug: /ui_ux
 
 Este documento reúne 10 melhorias de experiência do usuário (UX) propostas para o sistema WorkFlow FATEC, cada uma com o problema observado, a melhoria sugerida e o local de aplicação.
 
+:::info Veja também
+Para a **Caixa de Sugestões**, há também a [avaliação heurística de usabilidade (PDF)](https://drive.google.com/uc?export=download&id=1f3oALxiep1TFsTKygKJKxeI5b_kv91Ce), com recomendações pelas 10 heurísticas de Nielsen e uma ordem sugerida de implementação.
+:::
+
 ---
 
 ## 1. Melhorar a identificação das opções de login

@@ -9,7 +9,7 @@ As solicitações são abertas a partir do **Catálogo de serviços**, que reún
 
 ## 1. Escolha o serviço no catálogo
 
-![Catálogo de serviços](/img/manual/aluno-03b-catalogo.webp)
+![Catálogo de serviços](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-03b-catalogo)
 
 - Use as **categorias** (ex.: Acadêmico, TI) ou a **busca** para encontrar o serviço.
 - Clique em **Preencher solicitação** no serviço desejado.
@@ -23,31 +23,31 @@ O pedido é preenchido em etapas. **A solicitação só é criada quando você c
 
 Confira o serviço, a categoria e o **setor provável** que vai atender.
 
-![Etapa 1: confirmação do serviço](/img/manual/aluno-04-wizard-1-servico.webp)
+![Etapa 1: confirmação do serviço](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-04-wizard-1-servico)
 
 ### Etapa 2 — Dados acadêmicos
 
 Informe unidade, curso, turno, semestre e turma. O RA já vem preenchido.
 
-![Etapa 2: dados acadêmicos](/img/manual/aluno-05-wizard-2-dados.webp)
+![Etapa 2: dados acadêmicos](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-05-wizard-2-dados)
 
 ### Etapa 3 — Campos específicos
 
 Cada serviço pede informações próprias. Descreva o que precisa com o máximo de detalhes: para que serve o documento, prazos, disciplina envolvida etc.
 
-![Etapa 3: campos específicos do serviço](/img/manual/aluno-06-wizard-3-campos.webp)
+![Etapa 3: campos específicos do serviço](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-06-wizard-3-campos)
 
 ### Etapa 4 — Documentos
 
 Anexe comprovantes, se o serviço pedir ou se ajudarem no atendimento. Limite de **10 MB por arquivo**; aceita PDF, Word, Excel, imagens e TXT.
 
-![Etapa 4: anexar documentos](/img/manual/aluno-07-wizard-4-documentos.webp)
+![Etapa 4: anexar documentos](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-07-wizard-4-documentos)
 
 ### Etapa 5 — Revisão
 
 Revise tudo, marque a confirmação e clique em **Enviar solicitação**.
 
-![Etapa 5: revisão antes de enviar](/img/manual/aluno-08-wizard-5-revisao.webp)
+![Etapa 5: revisão antes de enviar](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-08-wizard-5-revisao)
 
 ## 3. Depois de enviar
 

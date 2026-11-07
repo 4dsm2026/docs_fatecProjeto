@@ -9,7 +9,7 @@ title: Meus dados e configurações
 
 Em **Meus dados** ficam suas informações cadastrais.
 
-![Meus dados](/img/manual/aluno-15-meus-dados.webp)
+![Meus dados](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-15-meus-dados)
 
 | Seção | O que você pode fazer |
 |---|---|
@@ -26,7 +26,7 @@ Depois de editar, clique em **Salvar alterações**.
 
 ## Configurações
 
-![Configurações](/img/manual/aluno-17-configuracoes.webp)
+![Configurações](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-17-configuracoes)
 
 - **Tema**: claro ou escuro. Vale só para o navegador em que você escolheu.
 - **Notificações na plataforma**: liga ou desliga os avisos do sino. Essa escolha fica salva na sua conta.
@@ -36,4 +36,4 @@ Depois de editar, clique em **Salvar alterações**.
 
 A página **Ajuda / FAQ** do portal responde às dúvidas mais comuns (senha, e-mail educacional, documentos, notificações), com busca e filtro por assunto. Veja também as [Dúvidas frequentes](../faq.md) deste manual.
 
-![Ajuda / FAQ](/img/manual/aluno-16-ajuda.webp)
+![Ajuda / FAQ](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-16-ajuda)

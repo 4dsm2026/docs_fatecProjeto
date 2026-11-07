@@ -7,7 +7,7 @@ title: Primeiros passos
 
 ## Entrar no sistema
 
-![Tela de login com as abas Funcionário e Aluno (RA)](/img/manual/aluno-01-login.webp)
+![Tela de login com as abas Funcionário e Aluno (RA)](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-01-login)
 
 1. Escolha a aba de acordo com o seu perfil:
    - **Funcionário**: entre com o **e-mail institucional** (ex.: `nome.sobrenome@fatec.sp.gov.br`).
@@ -25,7 +25,7 @@ Depois de **5 senhas erradas seguidas**, a conta fica bloqueada por **15 minutos
 
 Contas novas recebem uma **senha temporária**. No primeiro login com ela, o sistema pede a troca da senha antes de liberar o acesso.
 
-![Tela de primeiro acesso](/img/manual/aluno-02-primeiro-acesso.webp)
+![Tela de primeiro acesso](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/aluno-02-primeiro-acesso)
 
 1. Opcionalmente, informe um **e-mail pessoal**. Ele é usado para recuperar a senha e receber avisos.
 2. Crie a **nova senha** e repita-a em **Confirmar nova senha**. A senha precisa ter:

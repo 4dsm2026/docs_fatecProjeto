@@ -7,7 +7,7 @@ title: Alunos
 
 Em **Gerenciar Alunos** ficam todos os alunos com acesso ao portal.
 
-![Gerenciar Alunos](/img/manual/admin-04-alunos.webp)
+![Gerenciar Alunos](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-04-alunos)
 
 - **Busca** por RA, e-mail ou nome; filtro **Ativos** / **Inativos**.
 - **Ações**, em cada linha: abre o cadastro do aluno para consulta e edição.

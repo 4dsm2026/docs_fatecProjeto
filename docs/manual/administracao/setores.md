@@ -7,7 +7,7 @@ title: Setores
 
 Setores são as áreas da Fatec que atendem os chamados (ex.: Secretaria, Suporte Técnico). Os chamados podem ser filtrados por setor, e os relatórios mostram o atendimento de cada um.
 
-![Setores](/img/manual/admin-06-setores.webp)
+![Setores](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-06-setores)
 
 ## Criar e organizar
 

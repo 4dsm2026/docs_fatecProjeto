@@ -7,13 +7,13 @@ title: Responder sugestões
 
 As sugestões, elogios e críticas enviados pelos alunos ficam em **Caixa de Sugestões**.
 
-![Lista de sugestões](/img/manual/admin-08-sugestoes.webp)
+![Lista de sugestões](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-08-sugestoes)
 
 Filtre por **Não respondido** para ver o que está pendente.
 
 ## Responder
 
-![Responder uma sugestão](/img/manual/admin-09-sugestao-detalhe.webp)
+![Responder uma sugestão](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-09-sugestao-detalhe)
 
 1. Abra a sugestão.
 2. Escreva a resposta no editor.

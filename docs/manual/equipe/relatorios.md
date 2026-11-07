@@ -7,7 +7,7 @@ title: Relatórios
 
 A página **Relatórios** resume o atendimento e se atualiza sozinha a cada 30 segundos.
 
-![Relatórios](/img/manual/admin-10-relatorios.webp)
+![Relatórios](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-10-relatorios)
 
 ## Filtros
 

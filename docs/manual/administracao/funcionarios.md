@@ -7,7 +7,7 @@ title: Funcionários
 
 Em **Gerenciar Funcionários** ficam as pessoas da equipe da Fatec que usam o painel.
 
-![Gerenciar Funcionários](/img/manual/admin-05-funcionarios.webp)
+![Gerenciar Funcionários](https://res.cloudinary.com/vslablah/image/upload/f_auto,q_auto/admin-05-funcionarios)
 
 - **Busca** por e-mail, nome ou setor.
 - Filtros por **papel** (Backoffice, Técnico, Administrador) e por situação (**Ativos** / **Inativos**).
