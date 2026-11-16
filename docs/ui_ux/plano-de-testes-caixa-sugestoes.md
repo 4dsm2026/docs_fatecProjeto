@@ -113,7 +113,7 @@ Aprovado: todos os resultados esperados foram observados e registrados. Falhou: 
 |-----------------------------|--------------------------------------------------------------------------------|------------------------|
 | **Caixa-preta**             | Execução pela interface, considerando entradas e saídas observáveis.           | Todos                  |
 | **Classes de equivalência** | E-mails válidos/inválidos; conteúdo vazio/válido; perfis aluno/staff.          | 03, 04, 05, 09, 18     |
-| **Valores-limite**          | Mínimo de 3 e máximo de 1.000 caracteres na sugestão; 500 na tela de resposta; até 3 imagens de 2 MB. | 05, 06, 17, 20, 21, 22 |
+| **Valores-limite**          | Mínimo de 3 e máximo de 1.000 caracteres na sugestão e na resposta; até 3 imagens de 2 MB. | 05, 06, 17, 20, 21, 22 |
 | **Cobertura de caminhos**   | Criação, consulta, filtro, resposta parcial, finalização e bloqueios.          | 02, 08, 12, 14, 15, 16 |
 | **Permissões**              | Separação entre dados de alunos e ações administrativas.                       | 09, 11, 18             |
 
@@ -672,16 +672,16 @@ ________________________________________________________________________________
 | **Funcionalidade**    | Validação da resposta                                                                                              |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------|
 | **Tipo / prioridade** | Valor-limite / compatibilidade entre camadas \| Alta                                                               |
-| **Objetivo**          | Confirmar o comportamento do limite exibido pela tela e evidenciar a divergência entre frontend e backend.         |
+| **Objetivo**          | Confirmar que a tela e a API usam o mesmo limite de 1.000 caracteres na resposta.                                  |
 | **Pré-condições**     | Staff autenticado; sugestão nova, sem resposta; textos previamente contados.                                       |
-| **Dados de teste**    | Texto A: exatamente 500 caracteres \| tentativa de inserir o 501º \| referência técnica: backend aceita até 1.000. |
+| **Dados de teste**    | Texto A: exatamente 1.000 caracteres \| Texto B: 1.001 caracteres \| referência técnica: backend aceita até 1.000. |
 
 | **\#** | **Ação do executor**                                   | **Resultado esperado**                                                                          |
 |--------|--------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| **1**  | Colar o Texto A no campo de resposta.                  | O contador mostra 500/500 e o texto completo permanece no campo.                                |
-| **2**  | Tentar inserir o 501º caractere.                       | A interface não permite ultrapassar 500 caracteres.                                             |
-| **3**  | Salvar a resposta com exatamente 500 caracteres.       | A resposta é salva com sucesso e sem truncamento.                                               |
-| **4**  | Registrar em evidência o limite mostrado na interface. | A evidência permite comparar o limite de 500 da tela com o limite de 1.000 definido no backend. |
+| **1**  | Colar o Texto A no campo de resposta.                  | O contador mostra 1000/1000 e o texto completo permanece no campo.                              |
+| **2**  | Trocar pelo Texto B e clicar em salvar.                | A resposta não é salva e aparece o aviso de máximo de 1000 caracteres.                          |
+| **3**  | Voltar ao Texto A e salvar.                            | A resposta é salva com sucesso e sem truncamento.                                               |
+| **4**  | Registrar em evidência o limite mostrado na interface. | A evidência mostra o limite de 1.000 na tela, igual ao da API.                                  |
 
 **Resultado obtido:**  
 ________________________________________________________________________________  
@@ -907,6 +907,8 @@ Cada comportamento divergente vira uma **issue** pelo modelo **Bug** no reposit�
 
 
 **Situação em 20/10/2026:** a divergência continua (tela 500, API 1.000) e está registrada em [frontend#252](https://github.com/4dsm2026/frontend_fatecProjeto/issues/252).
+
+**Situação em 16/11/2026:** decidido o limite de 1.000 caracteres, igual ao da sugestão do aluno. A tela passou a usar 1.000 ([frontend#298](https://github.com/4dsm2026/frontend_fatecProjeto/pull/298)), e o CT-NF2-17 foi atualizado.
 
 **Envio anônimo:** a história US6.2 previa a opção de enviar a sugestão de forma anônima, e a funcionalidade foi entregue sempre identificada. A decisão está em [backend#125](https://github.com/4dsm2026/backend_fatecProjeto/issues/125); se mudar, este plano precisa de casos novos.
 
